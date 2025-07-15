@@ -93,7 +93,7 @@ const Navbar = () => {
             </>
           ) : (
             <Link
-              to="/login"
+              to="/auth/login"
               className="text-sm bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
               Login
@@ -133,7 +133,7 @@ const Navbar = () => {
       </div>
     ) : (
       <Link
-        to="/login"
+        to="/auth/login"
         className="text-sm inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
         Login
