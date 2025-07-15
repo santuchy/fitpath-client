@@ -1,6 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
+import logo from "../../assets/fitpath-logo.png"
 // import { AuthContext } from "../../providers/AuthProvider"; 
 
 const Navbar = () => {
@@ -17,13 +18,12 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+      <div className="max-w-11/12 mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
         
         {/* Left: Logo */}
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="logo" className="w-8 h-8" />
           <Link to="/" className="text-xl font-bold text-gray-800">
-            FitPath
+            <img src={logo} alt="logo" className="w-[150px]" />
           </Link>
         </div>
 
