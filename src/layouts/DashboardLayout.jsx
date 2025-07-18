@@ -20,9 +20,8 @@ const DashboardLayout = () => {
 
         {/* Sidebar Links */}
         <ul
-          className={`space-y-2 text-base mt-4 lg:mt-0 ${
-            isOpen ? "block" : "hidden"
-          } lg:block`}
+          className={`space-y-2 text-base mt-4 lg:mt-0 ${isOpen ? "block" : "hidden"
+            } lg:block`}
         >
           <li>
             <NavLink to="/" className="block hover:text-blue-500">
@@ -42,6 +41,11 @@ const DashboardLayout = () => {
           <li>
             <NavLink to="/dashboard/add-class" className="block hover:text-blue-500">
               Add Class
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/add-slot" className="block hover:text-blue-500">
+              Add Slot
             </NavLink>
           </li>
           <li>

@@ -7,6 +7,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import AddClassPage from "../pages/Dashboard/AddClassPage";
 import AddSlotPage from "../pages/Dashboard/AddSlotPage";
 import ManageSlotsPage from "../pages/Dashboard/ManageSlotsPage";
+import AllTrainersPage from "../pages/Home/AllTrainerPage/AllTrainersPage";
+import TrainerDetailsPage from "../pages/Dashboard/TrainerDetailsPage";
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +18,14 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
+            },
+            {
+                 path: "/trainers",
+                 element: <AllTrainersPage></AllTrainersPage>
+            },
+            {
+                 path: "/trainer/:id",
+                 element: <TrainerDetailsPage></TrainerDetailsPage>
             },
             {
                 path: '/auth/login',
