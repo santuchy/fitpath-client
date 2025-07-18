@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import bannerImg from "../../../assets/bannerImg.png"
-
+import bannerImg from "../../../assets/bannerImg.png";
+import { motion } from "framer-motion";
 
 const Banner = () => {
   return (
@@ -8,29 +8,46 @@ const Banner = () => {
       <div className="max-w-11/12 mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-8">
         
         {/* Left Text */}
-        <div className="flex-1 text-center md:text-left lg:pl-15">
+        <motion.div
+          className="flex-1 text-center md:text-left lg:pl-15"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">
             Transform Your Fitness Journey with <span className="text-[#BE1C20]">Fit</span><span className="text-[#03466e]">Path</span>
           </h1>
           <p className="text-gray-700 text-lg mb-6">
             Track your workouts, connect with top trainers, and become your best self—one rep at a time.
           </p>
-          <Link
-            to="/classes"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded shadow"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            Explore Classes
-          </Link>
-        </div>
+            <Link
+              to="/classes"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded shadow"
+            >
+              Explore Classes
+            </Link>
+          </motion.div>
+        </motion.div>
 
         {/* Right Image */}
-        <div className="flex-1 lg:pl-20">
+        <motion.div
+          className="flex-1 lg:pl-20"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <img
-            src={bannerImg} // your image here
+            src={bannerImg}
             alt="Fitness Banner"
             className="w-full max-w-md mx-auto"
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

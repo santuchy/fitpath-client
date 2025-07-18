@@ -3,6 +3,10 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Home/Authentication/Login";
 import Register from "../pages/Home/Authentication/Register";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AddClassPage from "../pages/Dashboard/AddClassPage";
+import AddSlotPage from "../pages/Dashboard/AddSlotPage";
+import ManageSlotsPage from "../pages/Dashboard/ManageSlotsPage";
 
 export const router = createBrowserRouter([
     {
@@ -23,4 +27,22 @@ export const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: '/dashboard',
+        element: <DashboardLayout></DashboardLayout>,
+        children: [
+            {
+                path: "/dashboard/add-class",
+                element: <AddClassPage></AddClassPage>,
+            },
+            {
+                path: "/dashboard/add-slot",
+                element: <AddSlotPage></AddSlotPage>,
+            },
+            {
+                path: "/dashboard/manage-slots",
+                element: <ManageSlotsPage></ManageSlotsPage>,
+            },
+        ]
+    }
 ]);

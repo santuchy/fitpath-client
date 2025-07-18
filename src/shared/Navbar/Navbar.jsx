@@ -2,16 +2,24 @@ import { FaUserCircle } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/fitpath-logo.png"
-// import { AuthContext } from "../../providers/AuthProvider"; 
+import { AuthContext } from './../../context/AuthContext';
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const { user, logout } = useContext;
+  const { user, logout } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout().catch(console.error);
-  };
+ const handleLogout = () => {
+  logout()
+    .then(() => {
+      toast.success("Logged out successfully!");
+    })
+    .catch((error) => {
+      toast.error("Logout failed!");
+      console.error(error);
+    });
+};
 
   const navLinkStyle = ({ isActive }) =>
     isActive ? "text-blue-600 font-semibold" : "hover:text-blue-500";

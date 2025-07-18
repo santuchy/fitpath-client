@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import BrandLogo from "../../../assets/brand-logo.png"
 
 const About = () => {
@@ -6,7 +7,13 @@ const About = () => {
       <div className="max-w-11/12 mx-auto flex flex-col-reverse md:flex-row items-center gap-10">
         
         {/* Left Text Content */}
-        <div className="flex-1 text-center md:text-left">
+        <motion.div
+          className="flex-1 text-center md:text-left"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             About <span className="text-[#BE1C20]">Fit</span><span className="text-[#03466e]">Path</span>
           </h2>
@@ -16,16 +23,22 @@ const About = () => {
           <p className="text-gray-700 text-base leading-relaxed">
             With cutting-edge technology and a passion for health, we aim to inspire a generation to lead healthier, more active lives. Join thousands of members on a journey toward transformation, strength, and balance.
           </p>
-        </div>
+        </motion.div>
 
         {/* Right Image */}
-        <div className="flex-1">
+        <motion.div
+          className="flex-1"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <img
             src={BrandLogo}
             alt="About FitPath"
             className="w-full max-w-md mx-auto rounded-xl "
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -15,16 +15,18 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
-    googleSignIn()
-      .then(result => {
-        const user = result.user;
-        setUser(user);
-        navigate(`${location.state ? location.state : '/'}`);
-      })
-      .catch(error => {
-        alert(error);
-      });
-  };
+  googleSignIn()
+    .then(result => {
+      const user = result.user;
+      setUser(user);
+      toast.success("Google Sign-in successful!");
+      navigate(location.state ? location.state : '/');
+    })
+    .catch(error => {
+      toast.error("Google Sign-in failed.");
+      console.error(error);
+    });
+};
 
   const handleLogin = (e) => {
     e.preventDefault();
