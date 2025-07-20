@@ -9,6 +9,7 @@ import AddSlotPage from "../pages/Dashboard/AddSlotPage";
 import ManageSlotsPage from "../pages/Dashboard/ManageSlotsPage";
 import AllTrainersPage from "../pages/Home/AllTrainerPage/AllTrainersPage";
 import TrainerDetailsPage from "../pages/Dashboard/TrainerDetailsPage";
+import BeTrainerPage from "../pages/Dashboard/BeTrainerPage";
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
                 path: "/dashboard/manage-slots",
                 element: <ManageSlotsPage></ManageSlotsPage>,
             },
+            {
+                path: "/dashboard/be-a-trainer",
+                element: <BeTrainerPage></BeTrainerPage>
+            }
         ]
     }
 ]);
