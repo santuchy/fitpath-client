@@ -53,6 +53,11 @@ const DashboardLayout = () => {
               Manage Slots
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/applied-trainers" className="hover:text-blue-500">
+            Applied Trainers
+          </NavLink>
+          </li>
         </ul>
       </div>
 

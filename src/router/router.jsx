@@ -10,6 +10,7 @@ import ManageSlotsPage from "../pages/Dashboard/ManageSlotsPage";
 import AllTrainersPage from "../pages/Home/AllTrainerPage/AllTrainersPage";
 import TrainerDetailsPage from "../pages/Dashboard/TrainerDetailsPage";
 import BeTrainerPage from "../pages/Dashboard/BeTrainerPage";
+import AppliedTrainersPage from "../pages/Dashboard/AppliedTrainersPage";
 
 export const router = createBrowserRouter([
     {
@@ -57,7 +58,11 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/be-a-trainer",
                 element: <BeTrainerPage></BeTrainerPage>
-            }
+            },
+            {
+                path: "/dashboard/applied-trainers",
+                element: <AppliedTrainersPage></AppliedTrainersPage>
+            },
         ]
     }
 ]);
