@@ -1,19 +1,16 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Select from "react-select";
+import { AuthContext } from './../../context/AuthContext';
 
 const AddSlotPage = () => {
   const { register, handleSubmit, reset } = useForm();
   const [selectedDays, setSelectedDays] = useState([]);
   const [classOptions, setClassOptions] = useState([]);
 
-  // 🟡 Dummy logged-in trainer info (replace with Firebase later)
-  const trainer = {
-    name: "Trainer Name",
-    email: "trainer@email.com",
-  };
+  const { user } = useContext(AuthContext);  // Get logged-in user's info (firebase)
 
   const dayOptions = [
     { value: "Sun", label: "Sun" },
@@ -26,6 +23,7 @@ const AddSlotPage = () => {
   ];
 
   useEffect(() => {
+    // Fetching available classes for slot selection
     axios.get("http://localhost:3000/classes").then((res) => {
       const options = res.data.map((cls) => ({
         value: cls.name,
@@ -37,8 +35,8 @@ const AddSlotPage = () => {
 
   const onSubmit = async (data) => {
     const slotData = {
-      name: trainer.name,
-      email: trainer.email,
+      name: user.displayName,  // Getting the trainer's name from Firebase
+      email: user.email,       // Trainer's email from Firebase
       days: selectedDays.map((d) => d.value),
       slotName: data.slotName,
       slotTime: data.slotTime,
@@ -50,7 +48,7 @@ const AddSlotPage = () => {
       if (res.data.insertedId || res.data.acknowledged) {
         Swal.fire("Success!", "Slot added successfully!", "success");
         reset();
-        setSelectedDays([]);
+        setSelectedDays([]);  // Reset selected days after submission
       }
     } catch (error) {
       console.error(error);
@@ -69,7 +67,7 @@ const AddSlotPage = () => {
         <div>
           <label className="block font-medium mb-1">Trainer Name</label>
           <input
-            value={trainer.name}
+            value={user?.displayName}  // Dynamically fetch name from Firebase
             readOnly
             className="w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
           />
@@ -79,7 +77,7 @@ const AddSlotPage = () => {
         <div>
           <label className="block font-medium mb-1">Trainer Email</label>
           <input
-            value={trainer.email}
+            value={user?.email}  // Dynamically fetch email from Firebase
             readOnly
             className="w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
           />
