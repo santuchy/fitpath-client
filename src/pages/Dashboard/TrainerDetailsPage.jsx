@@ -21,6 +21,13 @@ const TrainerDetailsPage = () => {
 
   if (!trainer) return <p>Loading...</p>;
 
+  //   const handleSlotClick = (slot) => {
+  //   // Pass trainer and slot info to TrainerBookedPage
+  //   navigate(`/trainer-book/${slot._id}`, {
+  //     state: { trainer, slot } // pass both trainer and selected slot information
+  //   });
+  // };
+
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       {/* Grid for Trainer Info and Slots */}

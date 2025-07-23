@@ -34,27 +34,29 @@ const AddSlotPage = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    const slotData = {
-      name: user.displayName,  // Getting the trainer's name from Firebase
-      email: user.email,       // Trainer's email from Firebase
-      days: selectedDays.map((d) => d.value),
-      slotName: data.slotName,
-      slotTime: data.slotTime,
-      className: data.className,
-    };
-
-    try {
-      const res = await axios.post("http://localhost:3000/slots", slotData);
-      if (res.data.insertedId || res.data.acknowledged) {
-        Swal.fire("Success!", "Slot added successfully!", "success");
-        reset();
-        setSelectedDays([]);  // Reset selected days after submission
-      }
-    } catch (error) {
-      console.error(error);
-      Swal.fire("Error!", "Failed to add slot.", "error");
-    }
+  const slotData = {
+    name: user.displayName,           // Trainer's name
+    trainerEmail: user.email,         // Consistent field name
+    days: selectedDays.map((d) => d.value),
+    slotName: data.slotName,
+    slotTime: data.slotTime,
+    className: data.className,
+    isAvailable: true                 // ✅ This is the missing part
   };
+
+  try {
+    const res = await axios.post("http://localhost:3000/slots", slotData);
+    if (res.data.insertedId || res.data.acknowledged) {
+      Swal.fire("Success!", "Slot added successfully!", "success");
+      reset();
+      setSelectedDays([]);
+    }
+  } catch (error) {
+    console.error(error);
+    Swal.fire("Error!", "Failed to add slot.", "error");
+  }
+};
+
 
   return (
     <div className="max-w-2xl mx-auto p-6 mt-10 bg-white rounded-md shadow">
