@@ -14,6 +14,7 @@ import AppliedTrainersPage from "../pages/Dashboard/AppliedTrainersPage";
 import TrainerBookingPage from "../pages/Home/TrainerBookingPage/TrainerBookingPage";
 import TrainerBookedPage from "../pages/Dashboard/TrainerBookedPage";
 import PaymentPage from "../pages/Dashboard/Payment/PaymentPage";
+import ProfilePage from "../pages/Dashboard/ProfilePage";
 
 export const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/payment/:slotId",
                 element: <PaymentPage></PaymentPage>
+            },
+            {
+                 path: "/dashboard/profile",
+                 element: <ProfilePage></ProfilePage>,
             },
         ]
     }
