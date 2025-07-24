@@ -30,7 +30,7 @@ const TrainerBookingPage = () => {
       alert("Please select a membership package!");
       return;
     }
-    navigate(`/payment/${slotId}?package=${selectedPackage}`);
+    navigate(`/dashboard/payment/${slotId}?package=${selectedPackage}`);
   };
 
   if (!slot || !trainer) return <p>Loading...</p>;
