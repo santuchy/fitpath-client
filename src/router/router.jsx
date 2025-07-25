@@ -16,6 +16,7 @@ import TrainerBookedPage from "../pages/Dashboard/TrainerBookedPage";
 import PaymentPage from "../pages/Dashboard/Payment/PaymentPage";
 import ProfilePage from "../pages/Dashboard/ProfilePage";
 
+
 export const router = createBrowserRouter([
     {
         path: "/",

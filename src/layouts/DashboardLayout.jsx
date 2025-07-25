@@ -1,10 +1,18 @@
-
-import { useState } from "react";
+// src/layouts/DashboardLayout.jsx
+import { useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [slotId, setSlotId] = useState(null);
+
+  useEffect(() => {
+    const savedSlotId = localStorage.getItem("lastBookedSlotId");
+    if (savedSlotId) {
+      setSlotId(savedSlotId);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -19,10 +27,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Sidebar Links */}
-        <ul
-          className={`space-y-2 text-base mt-4 lg:mt-0 ${isOpen ? "block" : "hidden"
-            } lg:block`}
-        >
+        <ul className={`space-y-2 text-base mt-4 lg:mt-0 ${isOpen ? "block" : "hidden"} lg:block`}>
           <li>
             <NavLink to="/" className="block hover:text-blue-500">
               Homepage
@@ -34,7 +39,10 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/booked-trainer" className="block hover:text-blue-500">
+            <NavLink
+              to={slotId ? `/dashboard/booked-trainer?slotId=${slotId}` : "/dashboard/booked-trainer"}
+              className="block hover:text-blue-500"
+            >
               Booked Trainer
             </NavLink>
           </li>
@@ -55,8 +63,8 @@ const DashboardLayout = () => {
           </li>
           <li>
             <NavLink to="/dashboard/applied-trainers" className="hover:text-blue-500">
-            Applied Trainers
-          </NavLink>
+              Applied Trainers
+            </NavLink>
           </li>
         </ul>
       </div>
