@@ -66,6 +66,11 @@ const DashboardLayout = () => {
               Applied Trainers
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/activity-log" className="hover:text-blue-500">
+              Activity Log
+            </NavLink>
+          </li>
         </ul>
       </div>
 
