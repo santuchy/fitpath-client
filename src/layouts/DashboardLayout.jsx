@@ -71,6 +71,11 @@ const DashboardLayout = () => {
               Activity Log
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/all-subscribers" className="hover:text-blue-500">
+              All Newsletter Subscriber
+            </NavLink>
+          </li>
         </ul>
       </div>
 

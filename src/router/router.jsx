@@ -16,6 +16,7 @@ import TrainerBookedPage from "../pages/Dashboard/TrainerBookedPage";
 import PaymentPage from "../pages/Dashboard/Payment/PaymentPage";
 import ProfilePage from "../pages/Dashboard/ProfilePage";
 import ActivityLogPage from "../pages/Dashboard/ActivityLogPage";
+import AllSubscribersPage from "../pages/Dashboard/AllSubscribersPage";
 
 
 export const router = createBrowserRouter([
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/activity-log",
                 element: <ActivityLogPage></ActivityLogPage>,
+            },
+            {
+                path: "/dashboard/all-subscribers",
+                element: <AllSubscribersPage></AllSubscribersPage>,
             },
         ]
     }
