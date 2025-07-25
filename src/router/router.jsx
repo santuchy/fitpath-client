@@ -17,6 +17,8 @@ import PaymentPage from "../pages/Dashboard/Payment/PaymentPage";
 import ProfilePage from "../pages/Dashboard/ProfilePage";
 import ActivityLogPage from "../pages/Dashboard/ActivityLogPage";
 import AllSubscribersPage from "../pages/Dashboard/AllSubscribersPage";
+import ForumPage from "../pages/Home/ForumPage/ForumPage";
+import AddForum from './../pages/Dashboard/AddForum';
 
 
 export const router = createBrowserRouter([
@@ -30,15 +32,19 @@ export const router = createBrowserRouter([
             },
             {
                  path: "/trainers",
-                 element: <AllTrainersPage></AllTrainersPage>
+                 element: <AllTrainersPage></AllTrainersPage>,
             },
             {
                  path: "/trainer/:id",
-                 element: <TrainerDetailsPage></TrainerDetailsPage>
+                 element: <TrainerDetailsPage></TrainerDetailsPage>,
             },
             {
                 path: "/trainer-book/:slotId",
-                element: <TrainerBookingPage></TrainerBookingPage>
+                element: <TrainerBookingPage></TrainerBookingPage>,
+            },
+            {
+                path: "/forum",
+                element: <ForumPage></ForumPage>,
             },
             {
                 path: '/auth/login',
@@ -94,6 +100,10 @@ export const router = createBrowserRouter([
                 path: "/dashboard/all-subscribers",
                 element: <AllSubscribersPage></AllSubscribersPage>,
             },
+            {
+                path: "/dashboard/add-forum",
+                element: <AddForum></AddForum>
+            }
         ]
     }
 ]);

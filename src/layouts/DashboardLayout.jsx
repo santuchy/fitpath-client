@@ -76,6 +76,11 @@ const DashboardLayout = () => {
               All Newsletter Subscriber
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/add-forum" className="hover:text-blue-500">
+              Add New Forum
+            </NavLink>
+          </li>
         </ul>
       </div>
 

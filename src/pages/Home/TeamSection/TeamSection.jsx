@@ -27,7 +27,7 @@ const trainers = [
 
 const TeamSection = () => {
   return (
-    <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white py-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className="text-4xl font-bold text-center mb-12 text-gray-800"

@@ -5,6 +5,8 @@ import About from './About/About';
 import TestimonialsSection from './Testimonial/TestimonialsSection';
 import NewsletterSection from './Newsletter/NewsletterSection';
 import TeamSection from './TeamSection/TeamSection';
+import LatestForumPosts from './LatestForumPosts/LatestForumPosts';
+
 
 
 
@@ -16,6 +18,7 @@ const Home = () => {
             <Featured></Featured>
             <About></About>
             <TestimonialsSection></TestimonialsSection>
+            <LatestForumPosts></LatestForumPosts>
             <NewsletterSection></NewsletterSection>
             <TeamSection></TeamSection>
         </div>
