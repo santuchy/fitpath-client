@@ -19,6 +19,7 @@ import ActivityLogPage from "../pages/Dashboard/ActivityLogPage";
 import AllSubscribersPage from "../pages/Dashboard/AllSubscribersPage";
 import ForumPage from "../pages/Home/ForumPage/ForumPage";
 import AddForum from './../pages/Dashboard/AddForum';
+import AllClassesPage from "../pages/Home/AllClassesPage/AllClassesPage";
 
 
 export const router = createBrowserRouter([
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
             {
                 path: "/trainer-book/:slotId",
                 element: <TrainerBookingPage></TrainerBookingPage>,
+            },
+            {
+                path: "/classes",
+                element: <AllClassesPage></AllClassesPage>,
             },
             {
                 path: "/forum",
