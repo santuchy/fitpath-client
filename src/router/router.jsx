@@ -20,6 +20,9 @@ import AllSubscribersPage from "../pages/Dashboard/AllSubscribersPage";
 import ForumPage from "../pages/Home/ForumPage/ForumPage";
 import AddForum from './../pages/Dashboard/AddForum';
 import AllClassesPage from "../pages/Home/AllClassesPage/AllClassesPage";
+import AllTrainersDash from "../pages/Dashboard/AllTrainersDash";
+import BalancePage from "../pages/Dashboard/BalancePage";
+
 
 
 export const router = createBrowserRouter([
@@ -108,7 +111,15 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/add-forum",
                 element: <AddForum></AddForum>
-            }
+            },
+            {
+                path: "/dashboard/all-trainers",
+                element: <AllTrainersDash></AllTrainersDash>,
+            },
+            {
+                path: "/dashboard/balance",
+                element: <BalancePage></BalancePage>,
+            },
         ]
     }
 ]);

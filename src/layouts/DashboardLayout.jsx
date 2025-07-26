@@ -81,6 +81,16 @@ const DashboardLayout = () => {
               Add New Forum
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/all-trainers" className="hover:text-blue-500">
+              All Trainers
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/balance" className="hover:text-blue-500">
+              Balance
+            </NavLink>
+          </li>
         </ul>
       </div>
 
