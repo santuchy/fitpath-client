@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
-import logo from "../../assets/fitpath-logo.png"
+import logo from "../../assets/fitpath-logo.png";
 import { AuthContext } from './../../context/AuthContext';
 import { toast } from "react-toastify";
 
@@ -10,19 +10,19 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
- const handleLogout = () => {
-  logout()
-    .then(() => {
-      toast.success("Logged out successfully!");
-    })
-    .catch((error) => {
-      toast.error("Logout failed!");
-      console.error(error);
-    });
-};
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        toast.success("Logged out successfully!");
+      })
+      .catch((error) => {
+        toast.error("Logout failed!");
+        console.error(error);
+      });
+  };
 
   const navLinkStyle = ({ isActive }) =>
-    isActive ? "text-blue-600 font-semibold" : "hover:text-blue-500";
+    isActive ? "text-[#f34e3a] font-semibold" : "text-black hover:text-[#f34e3a]";
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -39,7 +39,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-700 hover:text-blue-600 focus:outline-none"
+            className="text-gray-700 hover:text-[#f34e3a] focus:outline-none"
           >
             <svg
               className="h-6 w-6"
@@ -68,13 +68,23 @@ const Navbar = () => {
         </div>
 
         {/* Center: Nav Links */}
-        <div className="hidden md:flex gap-6 text-gray-700 text-sm items-center">
-          <NavLink to="/" className={navLinkStyle}>Home</NavLink>
-          <NavLink to="/trainers" className={navLinkStyle}>All Trainers</NavLink>
-          <NavLink to="/classes" className={navLinkStyle}>All Classes</NavLink>
-          <NavLink to="/forum" className={navLinkStyle}>Community</NavLink>
+        <div className="hidden md:flex gap-6  items-center">
+          <NavLink to="/" className={navLinkStyle}>
+            HOME
+          </NavLink>
+          <NavLink to="/trainers" className={navLinkStyle}>
+           ALL TRAINERS
+          </NavLink>
+          <NavLink to="/classes" className={navLinkStyle}>
+            ALL CLASSES
+          </NavLink>
+          <NavLink to="/forum" className={navLinkStyle}>
+            COMMUNITY
+          </NavLink>
           {user && (
-            <NavLink to="/dashboard" className={navLinkStyle}>Dashboard</NavLink>
+            <NavLink to="/dashboard" className={navLinkStyle}>
+              DASHBOARD
+            </NavLink>
           )}
         </div>
 
@@ -94,7 +104,7 @@ const Navbar = () => {
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                className="text-sm bg-[#f34e3a] text-white px-3 py-1 rounded hover:bg-[#e03a2d]"
               >
                 Logout
               </button>
@@ -102,7 +112,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="/auth/login"
-              className="text-sm bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="text-sm bg-[#f34e3a] text-white px-4 py-2 rounded hover:bg-[#e03a2d]"
             >
               Login
             </Link>
@@ -111,44 +121,44 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Dropdown Nav */}
-    {isOpen && (
-  <div className="md:hidden bg-white shadow px-5 pt-4 pb-2 space-y-2">
-    <NavLink to="/" className={({ isActive }) => (isActive ? "text-blue-600 font-semibold block py-2" : "hover:text-blue-500 block py-2")}>
-      Home
-    </NavLink>
-    <NavLink to="/trainers" className={({ isActive }) => (isActive ? "text-blue-600 font-semibold block py-2" : "hover:text-blue-500 block py-2")}>
-      All Trainers
-    </NavLink>
-    <NavLink to="/classes" className={({ isActive }) => (isActive ? "text-blue-600 font-semibold block py-2" : "hover:text-blue-500 block py-2")}>
-      All Classes
-    </NavLink>
-    <NavLink to="/forum" className={({ isActive }) => (isActive ? "text-blue-600 font-semibold block py-2" : "hover:text-blue-500 block py-2")}>
-      Community
-    </NavLink>
-    {user && (
-      <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-blue-600 font-semibold block py-2" : "hover:text-blue-500 block py-2")}>
-        Dashboard
-      </NavLink>
-    )}
-    {user ? (
-      <div className="flex flex-col gap-2">
-        <button
-          onClick={handleLogout}
-          className="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-        >
-          Logout
-        </button>
-      </div>
-    ) : (
-      <Link
-        to="/auth/login"
-        className="text-sm inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Login
-      </Link>
-    )}
-  </div>
-)}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow px-5 pt-4 pb-2 space-y-2">
+          <NavLink to="/" className={({ isActive }) => (isActive ? "text-[#f34e3a] font-semibold block py-2" : "text-black hover:text-[#f34e3a] block py-2")}>
+            Home
+          </NavLink>
+          <NavLink to="/trainers" className={({ isActive }) => (isActive ? "text-[#f34e3a] font-semibold block py-2" : "text-black hover:text-[#f34e3a] block py-2")}>
+            All Trainers
+          </NavLink>
+          <NavLink to="/classes" className={({ isActive }) => (isActive ? "text-[#f34e3a] font-semibold block py-2" : "text-black hover:text-[#f34e3a] block py-2")}>
+            All Classes
+          </NavLink>
+          <NavLink to="/forum" className={({ isActive }) => (isActive ? "text-[#f34e3a] font-semibold block py-2" : "text-black hover:text-[#f34e3a] block py-2")}>
+            Community
+          </NavLink>
+          {user && (
+            <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-[#f34e3a] font-semibold block py-2" : "text-black hover:text-[#f34e3a] block py-2")}>
+              Dashboard
+            </NavLink>
+          )}
+          {user ? (
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={handleLogout}
+                className="text-sm bg-[#f34e3a] text-white px-3 py-1 rounded hover:bg-[#e03a2d]"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="text-sm inline-block bg-[#f34e3a] text-white px-4 py-2 rounded hover:bg-[#e03a2d]"
+            >
+              Login
+            </Link>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

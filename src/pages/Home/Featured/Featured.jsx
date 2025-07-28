@@ -5,43 +5,56 @@ const features = [
   {
     title: "Track Your Progress",
     description: "Visualize your fitness journey with real-time stats and analytics. Set goals and crush them!",
-    icon: <FaChartLine className="text-4xl text-blue-600" />,
+    icon: <FaChartLine className="text-4xl text-[#BE1C20]" />,
   },
   {
     title: "Certified Trainers",
     description: "Get expert guidance from experienced and certified trainers tailored to your fitness needs.",
-    icon: <FaUsers className="text-4xl text-green-600" />,
+    icon: <FaUsers className="text-4xl text-[#03466e]" />,
   },
   {
     title: "Flexible Scheduling",
     description: "Access classes anytime with our wide range of time slots—designed to fit your routine.",
-    icon: <FaClock className="text-4xl text-yellow-600" />,
+    icon: <FaClock className="text-4xl text-[#f34e3a]" />,
   },
   {
     title: "Community Support",
     description: "Join a vibrant fitness community where members inspire, motivate, and grow together.",
-    icon: <FaComments className="text-4xl text-purple-600" />,
+    icon: <FaComments className="text-4xl text-[#6c757d]" />,
   },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 50 },
   visible: (i) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      delay: i * 0.2,
+      duration: 0.8,
+      delay: i * 0.3,
+      ease: "easeOut",
     },
   }),
 };
 
+const motionEffect = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeInOut",
+    },
+  },
+};
+
 const Featured = () => {
   return (
-    <section className="py-16 px-4 md:px-10 lg:px-20 bg-gray-50">
+    <section className="py-16 px-4 md:px-10 lg:px-20">
       <div className="max-w-11/12 mx-auto text-center">
         <motion.h2
-          className="text-3xl md:text-4xl font-bold text-gray-800 mb-8"
+          className="text-3xl md:text-4xl font-bold text-gray-800 mb-12"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -54,20 +67,24 @@ const Featured = () => {
           {features.map((feature, idx) => (
             <motion.div
               key={idx}
-              className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center"
+              className="bg-orange-50 rounded-xl shadow-lg hover:shadow-2xl  p-8 flex flex-col items-center text-center transition-all duration-300"
               custom={idx}
               initial="hidden"
               whileInView="visible"
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 20px rgba(0,0,0,0.15)" }}
               variants={fadeUp}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-              viewport={{ once: true }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 20px rgba(0,0,0,0.15)" }}
+              viewport={{ once: false }} // Make animation repeatable while scrolling
             >
-              <div className="mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 text-sm">{feature.description}</p>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                variants={motionEffect}
+                className="mb-6"
+              >
+                {feature.icon}
+              </motion.div>
+              <h3 className="text-2xl font-semibold text-[#03466e] mb-3">{feature.title}</h3>
+              <p className="text-gray-600 text-lg">{feature.description}</p>
             </motion.div>
           ))}
         </div>

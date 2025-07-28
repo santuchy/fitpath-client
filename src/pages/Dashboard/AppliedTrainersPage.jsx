@@ -12,12 +12,11 @@ const AppliedTrainersPage = () => {
     // Fetch the applied trainers when the component mounts
     const fetchAppliedTrainers = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/applied-trainers",
-      {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`
-      }
-    });
+        const res = await axios.get("http://localhost:3000/applied-trainers", {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`
+          }
+        });
         setApplied(res.data);
       } catch (error) {
         console.error("Failed to fetch applied trainers:", error);
@@ -47,10 +46,7 @@ const AppliedTrainersPage = () => {
         confirmButtonText: "Okay",
       });
     } catch (error) {
-      console.error(
-        "Failed to confirm the trainer:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Failed to confirm the trainer:", error.response ? error.response.data : error.message);
       Swal.fire({
         title: "Error",
         text: "There was an issue confirming the trainer.",
@@ -58,8 +54,7 @@ const AppliedTrainersPage = () => {
         confirmButtonText: "Try Again",
       });
     }
-};
-
+  };
 
   // Handle Reject Trainer
   const handleReject = async (email) => {
@@ -77,48 +72,52 @@ const AppliedTrainersPage = () => {
   };
 
   if (loading) {
-    return <p>Loading applied trainers...</p>; // Display loading state
+    return (
+      <div className="flex justify-center items-center">
+        <p className="text-lg text-gray-500">Loading applied trainers...</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Applied Trainers</h2>
-      <div className="grid gap-4">
-        {applied.length === 0 ? (
-          <p>No applied trainers available.</p>
-        ) : (
-          applied.map((t) => (
-            <div key={t._id} className="border p-4 shadow">
-              <p>
-                <strong>Name:</strong> {t.name}
-              </p>
-              <p>
-                <strong>Email:</strong> {t.email}
-              </p>
-              <p>
-                <strong>Skills:</strong> {t.skills.join(", ")}
-              </p>
-              <p>
-                <strong>Age:</strong> {t.age}
-              </p>
-              <div className="mt-2 space-x-2">
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
+      <h2 className="text-3xl font-bold text-center text-[#f34e3a] mb-4">Applied Trainers</h2>
+      
+      {applied.length === 0 ? (
+        <p className="text-center text-gray-500">No applied trainers available.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {applied.map((t) => (
+            <div key={t._id} className="border p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 bg-white">
+              <div className="text-center mb-4">
+                <img
+                  src={t.image || "/default-avatar.png"}
+                  alt={t.name}
+                  className="w-24 h-24 rounded-full mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-800">{t.name}</h3>
+                <p className="text-sm text-gray-500">{t.skills.join(", ")}</p>
+              </div>
+              <p className="text-sm text-gray-700 mb-2"><strong>Email:</strong> {t.email}</p>
+              <p className="text-sm text-gray-700 mb-2"><strong>Age:</strong> {t.age}</p>
+              <div className="flex justify-center gap-4 mt-4">
                 <button
                   onClick={() => handleConfirm(t.email)}
-                  className="bg-green-500 px-3 py-1 text-white"
+                  className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200"
                 >
                   Confirm
                 </button>
                 <button
                   onClick={() => handleReject(t.email)}
-                  className="bg-red-500 px-3 py-1 text-white"
+                  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200"
                 >
                   Reject
                 </button>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

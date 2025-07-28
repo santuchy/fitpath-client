@@ -1,4 +1,3 @@
-// src/components/Home/LatestForumPosts.jsx
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -21,14 +20,14 @@ const LatestForumPosts = () => {
 
   return (
     <motion.div
-      initial={{ x: -80, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
-      viewport={{ once: false }} 
-      className="bg-gray-50 py-14 px-6"
+      viewport={{ once: false }}
+      className="bg-white py-14 px-6"
     >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">
+        <h2 className="text-3xl font-bold text-center mb-10 text-[#f34e3a]">
           Latest Community Posts
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -46,16 +45,16 @@ const LatestForumPosts = () => {
                 variants={cardVariants}
                 initial={cardVariants[variant]}
                 whileInView="visible"
-                viewport={{ once: false }} // ✅ animate again when in view
-                className="bg-white p-4 rounded shadow hover:shadow-lg transition duration-300"
+                viewport={{ once: false }}
+                className="bg-orange-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
               >
-                <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                <p className="text-gray-600 text-sm mb-3">
+                <h3 className="text-xl font-semibold text-black mb-2">{post.title}</h3>
+                <p className="text-gray-600 text-sm mb-3 line-clamp-3">
                   {post.content.slice(0, 100)}...
                 </p>
                 <Link
                   to="/forum"
-                  className="text-blue-500 hover:underline inline-block"
+                  className="text-[#f34e3a] hover:underline text-sm inline-block"
                 >
                   Explore More →
                 </Link>

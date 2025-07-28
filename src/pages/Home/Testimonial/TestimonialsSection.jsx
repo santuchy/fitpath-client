@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi"; // Importing arrow icons
 
 const TestimonialsSection = () => {
   const [reviews, setReviews] = useState([]);
@@ -20,14 +21,14 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <div className="bg-gray-100 py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">
       <motion.div
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="max-w-6xl mx-auto"
+        className="max-w-6xl mx-auto text-center"
       >
-        <h2 className="text-3xl font-bold text-center mb-10">What Our Users Say</h2>
+        <h2 className="text-3xl font-bold text-[#f34e3a] mb-10">What Our Users Say</h2>
 
         <div className="relative max-w-3xl mx-auto">
           <AnimatePresence mode="wait">
@@ -36,13 +37,13 @@ const TestimonialsSection = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white p-6 rounded shadow-md"
+              transition={{ duration: 0.6 }}
+              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <p className="text-gray-700 mb-4 text-lg font-medium">
+              <p className="text-gray-800 mb-4 text-lg font-medium">
                 "{reviews[currentSlide]?.feedback}"
               </p>
-              <div className="flex items-center mb-2">
+              <div className="flex items-center justify-center mb-4">
                 {[...Array(5)].map((_, i) => (
                   <FaStar
                     key={i}
@@ -56,23 +57,24 @@ const TestimonialsSection = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex justify-center mt-6 gap-4">
+          {/* Navigation arrows */}
+          <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
             <button
               onClick={prevSlide}
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded"
+              className="bg-transparent text-[#f34e3a] hover:text-[#e03a2d] transition duration-300 text-2xl"
             >
-              &#8592; Prev
+              <FiChevronLeft />
             </button>
             <button
               onClick={nextSlide}
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded"
+              className="bg-transparent text-[#f34e3a] hover:text-[#e03a2d] transition duration-300 text-2xl"
             >
-              Next &#8594;
+              <FiChevronRight />
             </button>
           </div>
         </div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 

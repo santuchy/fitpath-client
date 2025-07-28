@@ -25,38 +25,71 @@ const NewsletterSection = () => {
 
   return (
     <motion.div
-      className="bg-gradient-to-r from-blue-100 to-purple-100 py-16 px-4 sm:px-6 lg:px-8"
-      initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: false }}
+      className="bg-orange-50 py-16 px-6 sm:px-8 lg:px-16"
     >
-      <div className="max-w-3xl mx-auto text-center bg-white shadow-lg rounded p-8">
-        <h2 className="text-3xl font-bold mb-4">Subscribe to our Newsletter</h2>
-        <p className="text-gray-600 mb-6">Stay updated with the latest news and offers!</p>
-        <div className="flex flex-col md:flex-row justify-center gap-4">
-          <input
+      <div className="max-w-5xl mx-auto text-center bg-white rounded-lg shadow-2xl p-12">
+        <motion.h2
+          className="text-4xl font-bold text-[#f34e3a] mb-6"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Subscribe to our Newsletter
+        </motion.h2>
+        <motion.p
+          className="text-lg text-gray-700 mb-8"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          Stay updated with the latest news and offers!
+        </motion.p>
+
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <motion.input
             type="text"
             placeholder="Your Name"
-            className="px-4 py-2 border rounded w-full md:w-1/3"
+            className="px-6 py-3 border border-gray-300 rounded-lg w-full sm:w-1/3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f34e3a]"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           />
-          <input
+          <motion.input
             type="email"
             placeholder="Your Email"
-            className="px-4 py-2 border rounded w-full md:w-1/3"
+            className="px-6 py-3 border border-gray-300 rounded-lg w-full sm:w-1/3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f34e3a]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           />
-          <button
+          <motion.button
             onClick={handleSubscribe}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+            className="bg-[#f34e3a] hover:bg-[#e03a2d] text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
             Subscribe Now
-          </button>
+          </motion.button>
         </div>
+
         {success && (
-          <p className="text-green-600 mt-4">Thank you for subscribing!</p>
+          <motion.p
+            className="text-green-600 mt-6 text-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            Thank you for subscribing!
+          </motion.p>
         )}
       </div>
     </motion.div>

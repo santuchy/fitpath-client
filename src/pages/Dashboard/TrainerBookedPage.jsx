@@ -1,4 +1,3 @@
-// src/pages/Dashboard/TrainerBookedPage.jsx
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from './../../context/AuthContext';
@@ -15,11 +14,8 @@ const TrainerBookedPage = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    axios.get(`http://localhost:3000/booked-trainers/${user.email}`,
-      {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`
-      }
+    axios.get(`http://localhost:3000/booked-trainers/${user.email}`, {
+      headers: { Authorization: `Bearer ${user.accessToken}` }
     })
       .then(res => setBookings(res.data))
       .catch(err => console.error("Failed to fetch bookings:", err));
@@ -47,11 +43,13 @@ const TrainerBookedPage = () => {
   if (bookings.length === 0) return <p className="text-center mt-10">No bookings found.</p>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6 mt-10 bg-white rounded shadow">
-      <h2 className="text-3xl font-bold text-center mb-6">Your Booked Trainers ✅</h2>
+    <div className="max-w-4xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-lg">
+      <h2 className="text-3xl font-semibold text-center mb-6 text-[#f34e3a]">
+        Your Booked Trainers ✅
+      </h2>
 
       {bookings.map((booking, index) => (
-        <div key={index} className="border p-4 rounded shadow mb-6">
+        <div key={index} className="bg-white border shadow-lg rounded-md mb-6 p-6 hover:shadow-xl transition duration-300">
           <p><strong>Trainer:</strong> {booking.trainerName}</p>
           <p><strong>Email:</strong> {booking.trainerEmail}</p>
           <p><strong>Class Name:</strong> {booking.className}</p>
@@ -65,7 +63,7 @@ const TrainerBookedPage = () => {
               setSelectedBooking(booking);
               setIsModalOpen(true);
             }}
-            className="mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="mt-3 bg-[#f34e3a] text-white px-4 py-2 rounded-lg hover:bg-[#e03a2d] transition duration-300"
           >
             Leave a Review
           </button>
@@ -74,36 +72,36 @@ const TrainerBookedPage = () => {
 
       {/* Review Modal */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="relative z-50">
-        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-md bg-white rounded p-6">
-            <Dialog.Title className="text-xl font-bold mb-4">Write a Review</Dialog.Title>
+          <Dialog.Panel className="w-full max-w-md bg-white rounded-lg shadow-xl p-8">
+            <Dialog.Title className="text-xl font-semibold text-center mb-4">Write a Review</Dialog.Title>
             <textarea
-              className="w-full border rounded p-2 mb-4"
+              className="w-full border p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[#f34e3a]"
               rows="4"
               placeholder="Your feedback..."
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
             />
-            <div className="flex items-center mb-4">
+            <div className="flex items-center justify-center mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <FaStar
                   key={star}
-                  className={`cursor-pointer text-xl ${rating >= star ? "text-yellow-400" : "text-gray-300"}`}
+                  className={`cursor-pointer text-2xl ${rating >= star ? "text-yellow-400" : "text-gray-300"}`}
                   onClick={() => setRating(star)}
                 />
               ))}
             </div>
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-3">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmitReview}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                className="bg-[#f34e3a] text-white px-6 py-2 rounded-lg hover:bg-[#e03a2d] transition duration-300"
               >
                 Submit
               </button>

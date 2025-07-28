@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { updateProfile } from "firebase/auth";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import Swal from "sweetalert2";
 import { auth } from './../../firebase/firebase.init';
@@ -47,48 +46,57 @@ const ProfilePage = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-6 text-center">Update Profile</h2>
-      <form onSubmit={handleUpdate} className="space-y-4 bg-white p-6 shadow-md rounded-xl">
+      <h2 className="text-4xl font-semibold mb-6 text-center text-[#f34e3a]">Update Profile</h2>
+      <form onSubmit={handleUpdate} className="space-y-6 bg-white p-8 shadow-xl rounded-lg">
+        {/* Name */}
         <div>
-          <label className="block font-medium mb-1">Name</label>
+          <label className="block text-lg font-semibold text-gray-700 mb-2">Name</label>
           <input
             type="text"
             value={name}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all"
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
+
+        {/* Photo URL */}
         <div>
-          <label className="block font-medium mb-1">Photo URL</label>
+          <label className="block text-lg font-semibold text-gray-700 mb-2">Photo URL</label>
           <input
             type="text"
             value={photoURL}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all"
             onChange={(e) => setPhotoURL(e.target.value)}
           />
         </div>
+
+        {/* Email (Uneditable) */}
         <div>
-          <label className="block font-medium mb-1">Email (Uneditable)</label>
+          <label className="block text-lg font-semibold text-gray-700 mb-2">Email (Uneditable)</label>
           <input
             type="email"
             value={user?.email || ""}
-            className="w-full p-2 border rounded bg-gray-100 cursor-not-allowed"
+            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
             readOnly
           />
         </div>
+
+        {/* Last Login */}
         <div>
-          <label className="block font-medium mb-1">Last Login</label>
+          <label className="block text-lg font-semibold text-gray-700 mb-2">Last Login</label>
           <input
             type="text"
             value={lastLogin}
-            className="w-full p-2 border rounded bg-gray-100 cursor-not-allowed"
+            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
             readOnly
           />
         </div>
+
+        {/* Update Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+          className="w-full py-3 px-6 bg-[#f34e3a] text-white font-semibold rounded-lg hover:bg-[#e03a2d] transition-all"
         >
           Update Profile
         </button>

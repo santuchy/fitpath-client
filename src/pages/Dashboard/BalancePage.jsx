@@ -13,61 +13,64 @@ const BalancePage = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3000/chart-stats",
-      {
+    axios.get("http://localhost:3000/chart-stats", {
       headers: {
-        Authorization: `Bearer ${user.accessToken}`
-      }
+        Authorization: `Bearer ${user.accessToken}`,
+      },
     }).then((res) => setData(res.data));
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8">
-      <h2 className="text-3xl font-bold mb-4">Balance Overview</h2>
+    <div className="max-w-6xl mx-auto p-6 space-y-10">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6">Balance Overview</h2>
 
+      {/* Card Section */}
       <div className="grid md:grid-cols-3 gap-6">
-        <div className="bg-green-100 p-4 rounded shadow">
-          <h3 className="text-xl font-semibold">Total Balance</h3>
-          <p className="text-2xl text-green-700">${data.totalBalance.toFixed(2)}</p>
+        <div className="bg-green-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+          <h3 className="text-xl font-semibold text-gray-700">Total Balance</h3>
+          <p className="text-3xl text-green-600 font-semibold">${data.totalBalance.toFixed(2)}</p>
         </div>
-        <div className="bg-blue-100 p-4 rounded shadow">
-          <h3 className="text-xl font-semibold">Newsletter Subscribers</h3>
-          <p className="text-2xl text-blue-700">{data.newsletterCount}</p>
+        <div className="bg-blue-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+          <h3 className="text-xl font-semibold text-gray-700">Newsletter Subscribers</h3>
+          <p className="text-3xl text-blue-600 font-semibold">{data.newsletterCount}</p>
         </div>
-        <div className="bg-purple-100 p-4 rounded shadow">
-          <h3 className="text-xl font-semibold">Paid Members</h3>
-          <p className="text-2xl text-purple-700">{data.paidMembers}</p>
+        <div className="bg-purple-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+          <h3 className="text-xl font-semibold text-gray-700">Paid Members</h3>
+          <p className="text-3xl text-purple-600 font-semibold">{data.paidMembers}</p>
         </div>
       </div>
 
-      <div>
-        <h3 className="text-2xl font-semibold mt-8 mb-4">Recent Transactions</h3>
-        <ul className="space-y-2">
+      {/* Recent Transactions */}
+      <div className="bg-white p-6 rounded-lg shadow-md mt-8">
+        <h3 className="text-2xl font-semibold mb-4 text-gray-800">Recent Transactions</h3>
+        <ul className="space-y-4">
           {data.lastSix.map((t, i) => (
-            <li key={i} className="bg-gray-50 p-3 rounded shadow">
-              <span className="font-medium">{t.memberName || "Unknown"}</span> paid{" "}
-              <span className="text-green-600 font-semibold">${t.amount}</span> on{" "}
-              <span className="text-gray-500 text-sm">
-                {new Date(t.date).toLocaleDateString()}
-              </span>
+            <li key={i} className="bg-gray-100 p-4 rounded-md shadow-sm hover:shadow-lg transition duration-300">
+              <div className="flex justify-between">
+                <span className="font-medium text-gray-800">{t.memberName || "Unknown"}</span>
+                <span className="text-sm text-gray-500">{new Date(t.date).toLocaleDateString()}</span>
+              </div>
+              <p className="text-lg font-semibold text-green-600">Paid: ${t.amount}</p>
             </li>
           ))}
         </ul>
       </div>
 
+      {/* Subscribers vs Members Chart */}
       <div className="mt-10">
-        <h3 className="text-2xl font-semibold mb-4">Subscribers vs Members</h3>
+        <h3 className="text-2xl font-semibold mb-6 text-gray-800">Subscribers vs Members</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={[
               { name: "Subscribers", value: data.newsletterCount },
               { name: "Paid Members", value: data.paidMembers },
             ]}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="value" fill="#8884d8" />
+            <Bar dataKey="value" fill="#8884d8" barSize={50} radius={5} />
           </BarChart>
         </ResponsiveContainer>
       </div>

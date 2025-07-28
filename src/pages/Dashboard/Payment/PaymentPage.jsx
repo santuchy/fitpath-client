@@ -71,27 +71,29 @@ const CheckoutForm = ({ slot, trainer, selectedPackage, user }) => {
 
   return (
     <>
-      <div className="bg-gray-100 rounded p-4 mb-6">
-        <h3 className="text-xl font-semibold mb-2">Payment Summary</h3>
-        <p><strong>Trainer Name:</strong> {trainer.name}</p>
-        <p><strong>Slot Name:</strong> {slot.slotName} ({slot.slotTime})</p>
-        <p><strong>Class:</strong> {slot.className}</p>
-        <p><strong>Package:</strong> {selectedPackage}</p>
-        <p><strong>Price:</strong> ${amountMap[selectedPackage] / 100}</p>
-        <p><strong>Your Name:</strong> {user.displayName}</p>
-        <p><strong>Your Email:</strong> {user.email}</p>
+      <div className="bg-gray-50 rounded-lg p-6 mb-8 shadow-md">
+        <h3 className="text-xl font-semibold mb-4 text-center">Payment Summary</h3>
+        <div className="text-gray-700">
+          <p><strong>Trainer:</strong> {trainer.name}</p>
+          <p><strong>Slot:</strong> {slot.slotName} ({slot.slotTime})</p>
+          <p><strong>Class:</strong> {slot.className}</p>
+          <p><strong>Package:</strong> {selectedPackage}</p>
+          <p><strong>Price:</strong> <span className="text-[#f34e3a]">${amountMap[selectedPackage] / 100}</span></p>
+          <p><strong>Your Name:</strong> {user.displayName}</p>
+          <p><strong>Your Email:</strong> {user.email}</p>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <CardElement className="p-4 border rounded bg-white" />
-        {error && <p className="text-red-500">{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <CardElement className="p-4 border rounded-lg bg-white shadow-md" />
+        {error && <p className="text-red-500 text-center">{error}</p>}
         {succeeded ? (
-          <p className="text-green-600 font-bold mt-4">✅ Payment succeeded!</p>
+          <p className="text-green-600 font-bold mt-4 text-center">✅ Payment succeeded!</p>
         ) : (
           <button
             type="submit"
             disabled={!stripe || processing}
-            className="w-full py-2 px-4 bg-green-600 text-white rounded hover:bg-green-700"
+            className="w-full py-3 bg-[#f34e3a] text-white rounded-lg hover:bg-[#e03a2d] transition-all duration-300 font-semibold"
           >
             {processing ? "Processing..." : "Pay Now"}
           </button>
@@ -120,11 +122,13 @@ const PaymentPage = () => {
     }).then((res) => setTrainer(res.data));
   }, [slotId]);
 
-  if (!slot || !trainer || !user) return <p>Loading...</p>;
+  if (!slot || !trainer || !user) return <p className="text-center text-gray-600">Loading...</p>;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 mt-10 bg-white rounded shadow">
-      <h2 className="text-3xl font-semibold text-center mb-6">Complete Your Payment</h2>
+    <div className="max-w-2xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-xl">
+      <h2 className="text-3xl font-semibold text-center mb-6 text-[#f34e3a]">
+        Complete Your Payment
+      </h2>
 
       <Elements stripe={stripePromise}>
         <CheckoutForm

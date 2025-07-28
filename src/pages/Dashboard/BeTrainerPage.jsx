@@ -1,4 +1,3 @@
-// src/pages/Dashboard/BeTrainerPage.jsx
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Select from "react-select";
@@ -32,12 +31,8 @@ const BeTrainerPage = () => {
   useEffect(() => {
     axios
       .get("http://localhost:3000/available-slots")
-      .then((res) => {
-        setAvailableSlots(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching available slots:", err);
-      });
+      .then((res) => setAvailableSlots(res.data))
+      .catch((err) => console.error("Error fetching available slots:", err));
   }, []);
 
   const handleCheckboxChange = (skill) => {
@@ -93,87 +88,121 @@ const BeTrainerPage = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4 text-center">Become a Trainer</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block font-semibold">Name</label>
-          <input value={user?.displayName} readOnly className="w-full border px-3 py-2 rounded" />
-        </div>
-        <div>
-          <label className="block font-semibold">Email</label>
-          <input value={user?.email} readOnly className="w-full border px-3 py-2 rounded" />
-        </div>
-        <div>
-          <label className="block font-semibold">Age</label>
+    <div className="max-w-3xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">
+      <h2 className="text-3xl font-semibold text-center text-[#f34e3a] mb-8">Become a Trainer</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Trainer Name */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Name</label>
           <input
-            type="number"
-            required
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            className="w-full border px-3 py-2 rounded"
+            value={user?.displayName}
+            readOnly
+            className="w-full p-4 border rounded-lg bg-gray-100 text-gray-600"
           />
         </div>
-        <div>
-          <label className="block font-semibold mb-1">Skills</label>
-          <div className="flex flex-wrap gap-3">
+
+        {/* Trainer Email */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Email</label>
+          <input
+            value={user?.email}
+            readOnly
+            className="w-full p-4 border rounded-lg bg-gray-100 text-gray-600"
+          />
+        </div>
+
+        {/* Age */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Age</label>
+          <input
+            type="number"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            className="w-full p-4 border rounded-lg"
+            required
+          />
+        </div>
+
+        {/* Skills */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Skills</label>
+          <div className="flex flex-wrap gap-4">
             {skillsList.map((skill) => (
-              <label key={skill} className="flex items-center gap-1">
+              <label key={skill} className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   checked={selectedSkills.includes(skill)}
                   onChange={() => handleCheckboxChange(skill)}
+                  className="h-5 w-5"
                 />
                 {skill}
               </label>
             ))}
           </div>
         </div>
-        <div>
-          <label className="block font-semibold mb-1">Available Days</label>
-          <Select isMulti options={daysOptions} onChange={setSelectedDays} required />
-        </div>
-        <div>
-          <label className="block font-semibold">Available Time</label>
-          <input
-            type="text"
+
+        {/* Available Days */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Available Days</label>
+          <Select
+            isMulti
+            options={daysOptions}
+            onChange={setSelectedDays}
+            className="w-full"
             required
-            placeholder="e.g. 6pm - 8pm"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            className="w-full border px-3 py-2 rounded"
           />
         </div>
-        <div>
-          <label className="block font-semibold mb-1">Available Slots</label>
-          <div className="flex flex-col gap-3">
+
+        {/* Available Time */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Available Time</label>
+          <input
+            type="text"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            placeholder="e.g. 6pm - 8pm"
+            className="w-full p-4 border rounded-lg"
+            required
+          />
+        </div>
+
+        {/* Available Slots */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Available Slots</label>
+          <div className="flex flex-col gap-4">
             {availableSlots.map((slot) => (
-              <label key={slot._id} className="flex items-start gap-2 border p-2 rounded">
+              <label key={slot._id} className="flex items-center gap-2 bg-gray-100 p-4 rounded-lg">
                 <input
                   type="checkbox"
                   checked={selectedSlots.includes(slot._id)}
                   onChange={() => handleSlotSelection(slot._id)}
+                  className="h-5 w-5"
                 />
                 <div>
                   <p className="font-semibold">{slot.className} - {slot.slotName}</p>
                   <p className="text-sm text-gray-600">Time: {slot.slotTime}</p>
-                  <p className="text-sm text-gray-600">Days: {slot.days?.join(', ')}</p>
+                  <p className="text-sm text-gray-600">Days: {slot.days.join(", ")}</p>
                 </div>
               </label>
             ))}
           </div>
         </div>
-        <div>
-          <label className="block font-semibold">Currently Available?</label>
+
+        {/* Availability */}
+        <div className="space-y-1">
+          <label className="text-lg font-semibold text-gray-700">Currently Available?</label>
           <input
             type="checkbox"
             checked={isAvailable}
             onChange={() => setIsAvailable(!isAvailable)}
+            className="h-5 w-5"
           />
         </div>
+
+        {/* Submit Button */}
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+          className="w-full py-3 bg-[#f34e3a] text-white font-semibold rounded-lg hover:bg-[#e03a2d] transition-all"
         >
           Apply
         </button>

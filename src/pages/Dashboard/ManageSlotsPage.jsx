@@ -1,106 +1,96 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { AuthContext } from './../../context/AuthContext';  // Correct path to AuthContext
+import { AuthContext } from './../../context/AuthContext'; 
 
 const ManageSlotsPage = () => {
   const [slots, setSlots] = useState([]);
   const { user, loading } = useContext(AuthContext);  // Accessing user data from AuthContext
 
-  // Fetch slots based on the logged-in trainer's email
   const fetchSlots = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/slots?email=${user.email}`);
-      console.log(res);
-      setSlots(res.data);  // Store slots in state
+      setSlots(res.data); // Store slots in state
     } catch (error) {
       console.error("Failed to fetch slots:", error);
     }
   };
 
-  // Fetch slots when user is available (after login)
   useEffect(() => {
     if (!loading && user?.email) {
       fetchSlots();  // Fetch slots only when the user is logged in
     }
-  }, [user, loading]);  // Re-run when user or loading changes
+  }, [user, loading]);
 
   // Handle deletion of a slot
   const handleDelete = async (id) => {
-  const confirm = await Swal.fire({
-    title: "Are you sure?",
-    text: "This slot will be permanently deleted!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#e74c3c",
-    cancelButtonColor: "#aaa",
-    confirmButtonText: "Yes, delete it!",
-  });
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "This slot will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#aaa",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-  if (confirm.isConfirmed) {
-    try {
-      // Send delete request to server
-      await axios.delete(`http://localhost:3000/slots/${id}`);
-      Swal.fire("Deleted!", "The slot has been deleted.", "success");
-
-      // Update state by filtering out the deleted slot
-      setSlots((prevSlots) => prevSlots.filter((slot) => slot._id !== id));
-    } catch (err) {
-      Swal.fire("Error!", `Failed to delete slot: ${err.message}`, "error");
+    if (confirm.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:3000/slots/${id}`);
+        Swal.fire("Deleted!", "The slot has been deleted.", "success");
+        setSlots((prevSlots) => prevSlots.filter((slot) => slot._id !== id)); // Remove deleted slot from list
+      } catch (err) {
+        Swal.fire("Error!", `Failed to delete slot: ${err.message}`, "error");
+      }
     }
-  }
-};
-
+  };
 
   // If loading or user is not available, show appropriate messages
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   if (!user) {
-    return <div>Please log in to manage your slots.</div>;
+    return <div className="text-center">Please log in to manage your slots.</div>;
   }
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-semibold text-center mb-6 text-indigo-700">
-        Manage My Slots
-      </h2>
+    <div className="p-8 max-w-7xl mx-auto space-y-8">
+      <h2 className="text-3xl font-semibold text-center text-[#f34e3a]">Manage My Slots</h2>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr className="bg-gray-200 text-left">
-              <th className="py-2 px-4 border">Slot Name</th>
-              <th className="py-2 px-4 border">Time</th>
-              <th className="py-2 px-4 border">Days</th>
-              <th className="py-2 px-4 border">Class</th>
-              <th className="py-2 px-4 border">Action</th>
+      <div className="overflow-x-auto shadow-lg rounded-lg bg-white">
+        <table className="min-w-full table-auto text-left border-collapse">
+          <thead className="bg-[#f34e3a] text-white">
+            <tr>
+              <th className="py-3 px-4 text-sm font-medium">Slot Name</th>
+              <th className="py-3 px-4 text-sm font-medium">Time</th>
+              <th className="py-3 px-4 text-sm font-medium">Days</th>
+              <th className="py-3 px-4 text-sm font-medium">Class</th>
+              <th className="py-3 px-4 text-sm font-medium">Action</th>
             </tr>
           </thead>
           <tbody>
-            {slots.map((slot) => (
-              <tr key={slot._id}>
-                <td className="py-2 px-4 border">{slot.slotName}</td>
-                <td className="py-2 px-4 border">{slot.slotTime}</td>
-                <td className="py-2 px-4 border">{slot.days?.join(", ")}</td>
-                <td className="py-2 px-4 border">{slot.className}</td>
-                <td className="py-2 px-4 border text-center">
-                  <button
-                    onClick={() => handleDelete(slot._id)}  // Trigger delete on button click
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {slots.length === 0 && (
+            {slots.length === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center py-4 text-gray-500">
-                  No slots found.
-                </td>
+                <td colSpan="5" className="text-center text-gray-500 py-4">No slots available.</td>
               </tr>
+            ) : (
+              slots.map((slot) => (
+                <tr key={slot._id} className="border-b hover:bg-gray-50">
+                  <td className="py-3 px-4 text-sm">{slot.slotName}</td>
+                  <td className="py-3 px-4 text-sm">{slot.slotTime}</td>
+                  <td className="py-3 px-4 text-sm">{slot.days?.join(", ")}</td>
+                  <td className="py-3 px-4 text-sm">{slot.className}</td>
+                  <td className="py-3 px-4 text-center">
+                    <button
+                      onClick={() => handleDelete(slot._id)}
+                      className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-200"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>

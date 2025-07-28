@@ -1,153 +1,163 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-
-import { updateProfile } from 'firebase/auth';
 import { AuthContext } from './../../../context/AuthContext';
 import axios from 'axios';
+import { updateProfile } from 'firebase/auth';
+import Lottie from 'lottie-react';
+import registerAnimation from '../../../assets/Animations/register.json';
 
 const Register = () => {
-    useEffect(() => {
-        document.title = "Register | FitPath";
-    }, []);
+  useEffect(() => {
+    document.title = "Register | FitPath";
+  }, []);
 
-    const { createUser, setUser } = useContext(AuthContext);
-     const location = useLocation();
-    const navigate = useNavigate();
+  const { createUser, setUser } = useContext(AuthContext);
 
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const handleRegister = (e) => {
-        e.preventDefault();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-        if (password.length < 6) {
-            setError("Password must be at least 6 characters.");
-            return;
-        } else if (!/[A-Z]/.test(password)) {
-            setError("Password must contain an uppercase letter.");
-            return;
-        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-            setError("Password must contain a special character.");
-            return;
-        } else if (!/[0-9]/.test(password)) {
-            setError("Password must contain a numeric character.");
-            return;
-        } else {
-            setError("");
-        }
+  const handleRegister = (e) => {
+    e.preventDefault();
 
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const photo = form.photo.value;
+    // Password validation checks
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      setError("Password must contain an uppercase letter.");
+      return;
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError("Password must contain a special character.");
+      return;
+    } else if (!/[0-9]/.test(password)) {
+      setError("Password must contain a numeric character.");
+      return;
+    } else {
+      setError("");
+    }
 
-        
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
 
-        createUser(email, password)
-            .then(async(result) => {
-                const user = result.user;
+    createUser(email, password)
+      .then(async (result) => {
+        const user = result.user;
 
-                // update userInfo in the database
+        // Update user info in the database
         const userInfo = {
-            email: email,
-            role: 'user', // default role
-            created_at: new Date().toISOString(),
-            last_log_in: new Date().toISOString()
-        }
+          email: email,
+          role: 'user', // default role
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString()
+        };
 
         const userRes = await axios.post('http://localhost:3000/users', userInfo);
         console.log(userRes.data);
+
+        // Update Firebase user profile
+        await updateProfile(user, {
+          displayName: name,
+          photoURL: photo
+        });
+
+        toast.success("Registration successful!");
+        setUser(user);
+        navigate(location.state ? location.state : '/');
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+        toast.error("Registration failed, try again...");
+      });
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4 py-8">
+      {/* Card Container */}
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-md flex flex-col md:flex-row">
         
-
-
-
-                updateProfile(user, {
-                    displayName: name,
-                    photoURL: photo
-                });
-                toast.success("Registration successful!");
-                setUser(user);
-                navigate(location.state ? location.state : '/');
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                alert(errorMessage);
-                toast.error("Registration failed, try again...");
-            });
-    };
-
-    return (
-        <div className="flex justify-center items-center min-h-[27rem] md:min-h-[42rem] bg-gray-50 px-4 py-8">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-2xl p-8">
-                <h2 className="text-2xl font-semibold text-center mb-6">Register your account</h2>
-
-                <form onSubmit={handleRegister} className="space-y-4">
-                    <div>
-                        <label className="block mb-1 font-medium text-sm">Name</label>
-                        <input
-                            name="name"
-                            type="text"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                            placeholder="Name"
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block mb-1 font-medium text-sm">Email</label>
-                        <input
-                            name="email"
-                            type="email"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                            placeholder="Email"
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block mb-1 font-medium text-sm">Photo URL</label>
-                        <input
-                            name="photo"
-                            type="text"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                            placeholder="Photo URL"
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block mb-1 font-medium text-sm">Password</label>
-                        <input
-                            name="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                            placeholder="Password"
-                            required
-                        />
-                    </div>
-
-                    {error && <p className="text-sm text-red-500">{error}</p>}
-
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition"
-                    >
-                        Register
-                    </button>
-
-                    <p className="text-center text-sm font-medium pt-4">
-                        Already have an account?{" "}
-                        <Link to="/auth/login" className="text-red-600 hover:underline">
-                            Login
-                        </Link>
-                    </p>
-                </form>
-            </div>
+        {/* Lottie Animation */}
+        <div className="w-full bg-orange-50 md:w-1/2 flex justify-center items-center p-6">
+          <Lottie animationData={registerAnimation} loop={true} />
         </div>
-    );
+
+        {/* Register Form */}
+        <div className="w-full md:w-1/2 p-8 space-y-6">
+          <h2 className="text-3xl font-bold text-center mb-6 text-[#f34e3a]">Register Your Account</h2>
+
+          <form onSubmit={handleRegister} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                name="name"
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all duration-300"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <input
+                name="email"
+                type="email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all duration-300"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Photo URL</label>
+              <input
+                name="photo"
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all duration-300"
+                placeholder="Photo URL"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Password</label>
+              <input
+                name="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all duration-300"
+                placeholder="Password"
+                required
+              />
+            </div>
+
+            {error && <p className="text-sm text-red-500">{error}</p>}
+
+            <button
+              type="submit"
+              className="w-full bg-[#f34e3a] text-white py-3 rounded-lg hover:bg-[#e03a2d] transition duration-300 font-semibold"
+            >
+              Register
+            </button>
+
+            <p className="text-center text-sm mt-4">
+              Already have an account?{" "}
+              <Link to="/auth/login" className="text-[#f34e3a] hover:underline">
+                Login
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Register;
