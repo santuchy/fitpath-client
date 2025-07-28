@@ -15,7 +15,12 @@ const TrainerBookedPage = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    axios.get(`http://localhost:3000/booked-trainers/${user.email}`)
+    axios.get(`http://localhost:3000/booked-trainers/${user.email}`,
+      {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`
+      }
+    })
       .then(res => setBookings(res.data))
       .catch(err => console.error("Failed to fetch bookings:", err));
   }, [user]);

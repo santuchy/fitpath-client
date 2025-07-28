@@ -1,11 +1,23 @@
 // src/layouts/DashboardLayout.jsx
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router";
+import useUserRole from "../hooks/useUserRole";
+import { AuthContext } from './../context/AuthContext';
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [slotId, setSlotId] = useState(null);
+
+  const { user } = useContext(AuthContext);
+  const { role, loading } = useUserRole(user?.email);
+
+  useEffect(() => {
+  console.log("User Role:", role);
+}, [role]);
+
+  
+  
 
   useEffect(() => {
     const savedSlotId = localStorage.getItem("lastBookedSlotId");
@@ -33,32 +45,38 @@ const DashboardLayout = () => {
               Homepage
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/profile" className="block hover:text-blue-500">
-              My Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={slotId ? `/dashboard/booked-trainer?slotId=${slotId}` : "/dashboard/booked-trainer"}
-              className="block hover:text-blue-500"
-            >
-              Booked Trainer
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/add-class" className="block hover:text-blue-500">
-              Add Class
-            </NavLink>
-          </li>
-          <li>
+          
+          {/* Trainer Route */}
+          {!loading && role === 'trainer' &&
+            <>
+            <li>
             <NavLink to="/dashboard/add-slot" className="block hover:text-blue-500">
-              Add Slot
+              Add New Slot
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/manage-slots" className="block hover:text-blue-500">
               Manage Slots
+            </NavLink>
+          </li>
+            </>
+          }
+
+          {/* Admin and Trainer Route */}
+          {!loading && (role === 'admin' || role === 'trainer') && (
+            <li>
+              <NavLink to="/dashboard/add-forum" className="hover:text-blue-500">
+                Add New Forum
+              </NavLink>
+            </li>
+          )}
+
+          {/* Admin route */}
+          { !loading && role === 'admin' &&
+            <>
+            <li>
+            <NavLink to="/dashboard/add-class" className="block hover:text-blue-500">
+              Add New Class
             </NavLink>
           </li>
           <li>
@@ -67,18 +85,8 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/activity-log" className="hover:text-blue-500">
-              Activity Log
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/dashboard/all-subscribers" className="hover:text-blue-500">
               All Newsletter Subscriber
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/add-forum" className="hover:text-blue-500">
-              Add New Forum
             </NavLink>
           </li>
           <li>
@@ -91,6 +99,33 @@ const DashboardLayout = () => {
               Balance
             </NavLink>
           </li>
+            </>
+          }
+
+          {/* Member route */}
+          {!loading && role === 'user' &&
+            <>
+            <li>
+            <NavLink
+              to={slotId ? `/dashboard/booked-trainer?slotId=${slotId}` : "/dashboard/booked-trainer"}
+              className="block hover:text-blue-500"
+            >
+              Booked Trainer
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/activity-log" className="hover:text-blue-500">
+              Activity Log
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/profile" className="block hover:text-blue-500">
+              My Profile
+            </NavLink>
+          </li>
+            </>
+          }
+
         </ul>
       </div>
 

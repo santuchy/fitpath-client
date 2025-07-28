@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import BrandLogo from "../../../assets/brand-logo.png"
+import bannerImg from "../../../assets/bannerImg.png";
 
 const About = () => {
   return (
@@ -34,7 +34,7 @@ const About = () => {
           viewport={{ once: true }}
         >
           <img
-            src={BrandLogo}
+            src={bannerImg}
             alt="About FitPath"
             className="w-full max-w-md mx-auto rounded-xl "
           />

@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { AuthContext } from './../../context/AuthContext';
 
 const BalancePage = () => {
+  const { user } = useContext(AuthContext);
   const [data, setData] = useState({
     totalBalance: 0,
     lastSix: [],
@@ -11,7 +13,12 @@ const BalancePage = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3000/chart-stats").then((res) => setData(res.data));
+    axios.get("http://localhost:3000/chart-stats",
+      {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`
+      }
+    }).then((res) => setData(res.data));
   }, []);
 
   return (

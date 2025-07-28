@@ -1,9 +1,12 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from './../../context/AuthContext';
 
 const AddClassPage = () => {
   const { register, handleSubmit, reset } = useForm();
+  const { user } = useContext(AuthContext);
 
   const onSubmit = async (data) => {
     try {

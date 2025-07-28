@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import bannerImg from "../../../assets/bannerImg.png";
 import { motion } from "framer-motion";
 
 const Banner = () => {
@@ -19,7 +18,7 @@ const Banner = () => {
             Transform Your Fitness Journey with <span className="text-[#BE1C20]">Fit</span><span className="text-[#03466e]">Path</span>
           </h1>
           <p className="text-gray-700 text-lg mb-6">
-            Track your workouts, connect with top trainers, and become your best self—one rep at a time.
+            Track your workouts, connect with top trainers, and become your best self one rep at a time.
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -42,11 +41,7 @@ const Banner = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <img
-            src={bannerImg}
-            alt="Fitness Banner"
-            className="w-full max-w-md mx-auto"
-          />
+         
         </motion.div>
       </div>
     </section>

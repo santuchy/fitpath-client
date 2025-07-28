@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 
 import { toast } from 'react-toastify';
 import { AuthContext } from './../../../context/AuthContext';
+import axios from 'axios';
 
 const Login = () => {
   useEffect(() => {
@@ -16,8 +17,21 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
   googleSignIn()
-    .then(result => {
+    .then(async(result) => {
       const user = result.user;
+
+      // update userInfo in the database
+        const userInfo = {
+            email: user.email,
+            role: 'user', // default role
+            created_at: new Date().toISOString(),
+            last_log_in: new Date().toISOString()
+        }
+
+        const res = await axios.post('http://localhost:3000/users', userInfo);
+        console.log(res.data);
+
+
       setUser(user);
       toast.success("Google Sign-in successful!");
       navigate(location.state ? location.state : '/');

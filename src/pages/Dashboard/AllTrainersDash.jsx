@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { AuthContext } from './../../context/AuthContext';
 
 const AllTrainersDash = () => {
   const [trainers, setTrainers] = useState([]);
+  const { user } = useContext(AuthContext);
 
   const fetchTrainers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/trainers");
+      const res = await axios.get("http://localhost:3000/trainers" ,
+      {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`
+      }
+    });
       setTrainers(res.data); // server already filters by role
     } catch (err) {
       console.error("Failed to fetch trainers", err);
@@ -20,7 +27,12 @@ const AllTrainersDash = () => {
   const demote = async (email) => {
     if (!confirm("Are you sure you want to demote this trainer to member?")) return;
     try {
-      const res = await axios.patch(`http://localhost:3000/trainers/demote/${email}`);
+      const res = await axios.patch(`http://localhost:3000/trainers/demote/${email}`,
+      {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`
+      }
+    });
       if (res.data.success) {
         fetchTrainers(); // re-fetch from DB to reflect correct role
       } else {

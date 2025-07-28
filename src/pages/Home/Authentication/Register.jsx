@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { updateProfile } from 'firebase/auth';
 import { AuthContext } from './../../../context/AuthContext';
+import axios from 'axios';
 
 const Register = () => {
     useEffect(() => {
@@ -11,6 +12,7 @@ const Register = () => {
     }, []);
 
     const { createUser, setUser } = useContext(AuthContext);
+     const location = useLocation();
     const navigate = useNavigate();
 
     const [password, setPassword] = useState("");
@@ -40,16 +42,33 @@ const Register = () => {
         const email = form.email.value;
         const photo = form.photo.value;
 
+        
+
         createUser(email, password)
-            .then(result => {
+            .then(async(result) => {
                 const user = result.user;
+
+                // update userInfo in the database
+        const userInfo = {
+            email: email,
+            role: 'user', // default role
+            created_at: new Date().toISOString(),
+            last_log_in: new Date().toISOString()
+        }
+
+        const userRes = await axios.post('http://localhost:3000/users', userInfo);
+        console.log(userRes.data);
+        
+
+
+
                 updateProfile(user, {
                     displayName: name,
                     photoURL: photo
                 });
                 toast.success("Registration successful!");
                 setUser(user);
-                navigate("/");
+                navigate(location.state ? location.state : '/');
             })
             .catch((error) => {
                 const errorMessage = error.message;

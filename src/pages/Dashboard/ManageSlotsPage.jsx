@@ -27,26 +27,30 @@ const ManageSlotsPage = () => {
 
   // Handle deletion of a slot
   const handleDelete = async (id) => {
-    const confirm = await Swal.fire({
-      title: "Are you sure?",
-      text: "This slot will be permanently deleted!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#e74c3c",
-      cancelButtonColor: "#aaa",
-      confirmButtonText: "Yes, delete it!",
-    });
+  const confirm = await Swal.fire({
+    title: "Are you sure?",
+    text: "This slot will be permanently deleted!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#e74c3c",
+    cancelButtonColor: "#aaa",
+    confirmButtonText: "Yes, delete it!",
+  });
 
-    if (confirm.isConfirmed) {
-      try {
-        await axios.delete(`http://localhost:3000/slots/${id}`);  // Send delete request to the server
-        Swal.fire("Deleted!", "The slot has been deleted.", "success");
-        fetchSlots();  // Refresh the slot list after deletion
-      } catch (err) {
-        Swal.fire("Error!", `Failed to delete slot: ${err.message}`, "error");
-      }
+  if (confirm.isConfirmed) {
+    try {
+      // Send delete request to server
+      await axios.delete(`http://localhost:3000/slots/${id}`);
+      Swal.fire("Deleted!", "The slot has been deleted.", "success");
+
+      // Update state by filtering out the deleted slot
+      setSlots((prevSlots) => prevSlots.filter((slot) => slot._id !== id));
+    } catch (err) {
+      Swal.fire("Error!", `Failed to delete slot: ${err.message}`, "error");
     }
-  };
+  }
+};
+
 
   // If loading or user is not available, show appropriate messages
   if (loading) {

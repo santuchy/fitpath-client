@@ -1,0 +1,35 @@
+import React, { useContext, useEffect } from 'react';
+import { AuthContext } from './../context/AuthContext';
+import useUserRole from '../hooks/useUserRole';
+import { Navigate, useLocation } from 'react-router';
+
+const AdminRoute = ({children}) => {
+
+    // const { user, loading } = useContext(AuthContext);
+    // const {role} = useUserRole();
+
+    const { user, loading: authLoading } = useContext(AuthContext);
+  const location = useLocation();
+const { role, loading: roleLoading } = useUserRole(user?.email);
+
+    // Log to check if user and role are properly set
+    useEffect(() => {
+        console.log('User:', user);  // Check user
+        console.log('Role:', role);  // Check role
+    }, [user, role]);
+
+     // Combine loading states
+  if (authLoading || roleLoading) {
+    return <div>Loading...</div>; // Wait for both user and role to load
+  }
+
+    if (!user || role !== 'admin'){
+        // return <Navigate state={location.pathname} to="/forbidden"></Navigate>
+
+        return <Navigate to="/forbidden" state={{ from: location }} />;
+    }
+
+    return children;
+};
+
+export default AdminRoute;

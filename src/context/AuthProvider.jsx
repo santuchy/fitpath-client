@@ -2,11 +2,7 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import { useEffect, useState } from "react";
 import app from "../firebase/firebase.init";
 import { AuthContext } from "./AuthContext";
-
-
-
-
-
+import axios from "axios";
 
 const auth =getAuth(app);
 
@@ -14,11 +10,13 @@ const auth =getAuth(app);
 const AuthProvider = ({children}) => {
      const [user, setUser] = useState(null);
 
+     const [role, setRole] = useState(null);
+
     const[loading, setLoading] =useState(true);
 
     const provider = new GoogleAuthProvider();
     
-
+// Create a new user
     const createUser = (email, password)=>{
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
@@ -37,27 +35,44 @@ const AuthProvider = ({children}) => {
         return signInWithPopup (auth, provider);
     }
 
-    useEffect(()=>{
-       const unsubscribe =onAuthStateChanged(auth,(currentUser)=>{
-            setUser(currentUser);
-            setLoading(false);
-        });
-        return () =>{
-            unsubscribe();
-        }
-    },[])
+       // Fetch role based on email
+  const fetchUserRole = async (email) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/users/role/${email}`); // Pass email instead of UID
+      setRole(response.data.role); // Set the role in state
+    } catch (error) {
+      console.error("Error fetching user role:", error);
+      setRole(null); // Fallback to null if role fetch fails
+    }
+  };
 
-    const authData = {
-        user,
-        setUser,
-        createUser,
-        logout,
-        signIn,
-        loading,
-        setLoading,
-        googleSignIn,
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        await fetchUserRole(currentUser.email); // Fetch role using email
+      } else {
+        setRole(null); // Reset role if user logs out
+      }
+      setLoading(false); // Stop loading when user info is loaded
+    });
+
+    return () => {
+      unsubscribe(); // Clean up listener
     };
+  }, []);
 
+  const authData = {
+    user,
+    role,
+    setUser,
+    createUser,
+    signIn,
+    logout,
+    loading,
+    setLoading,
+    googleSignIn,
+  };
 
     return (
         <AuthContext.Provider value={authData}>

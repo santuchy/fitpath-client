@@ -22,6 +22,9 @@ import AddForum from './../pages/Dashboard/AddForum';
 import AllClassesPage from "../pages/Home/AllClassesPage/AllClassesPage";
 import AllTrainersDash from "../pages/Dashboard/AllTrainersDash";
 import BalancePage from "../pages/Dashboard/BalancePage";
+import PrivateRoute from "../routes/PrivateRoute";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import AdminRoute from "../routes/AdminRoute";
 
 
 
@@ -44,7 +47,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/trainer-book/:slotId",
-                element: <TrainerBookingPage></TrainerBookingPage>,
+                element: <PrivateRoute><TrainerBookingPage></TrainerBookingPage></PrivateRoute>,
             },
             {
                 path: "/classes",
@@ -62,15 +65,19 @@ export const router = createBrowserRouter([
                 path: '/auth/register',
                 element: <Register></Register>,
             },
+            {
+                path:'/forbidden',
+                Component: Forbidden,
+            },
         ]
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 path: "/dashboard/add-class",
-                element: <AddClassPage></AddClassPage>,
+                element: <AdminRoute><AddClassPage></AddClassPage></AdminRoute>,
             },
             {
                 path: "/dashboard/add-slot",
@@ -82,11 +89,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/be-a-trainer",
-                element: <BeTrainerPage></BeTrainerPage>
+                element: <BeTrainerPage></BeTrainerPage>,
             },
             {
                 path: "/dashboard/applied-trainers",
-                element: <AppliedTrainersPage></AppliedTrainersPage>
+                element: <AdminRoute><AppliedTrainersPage></AppliedTrainersPage></AdminRoute>,
             },
             {
                 path: "/dashboard/booked-trainer",
@@ -94,7 +101,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/payment/:slotId",
-                element: <PaymentPage></PaymentPage>
+                element: <PaymentPage></PaymentPage>,
             },
             {
                 path: "/dashboard/profile",
@@ -106,19 +113,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/all-subscribers",
-                element: <AllSubscribersPage></AllSubscribersPage>,
+                element: <AdminRoute><AllSubscribersPage></AllSubscribersPage></AdminRoute>,
             },
             {
                 path: "/dashboard/add-forum",
-                element: <AddForum></AddForum>
+                element: <AddForum></AddForum>,
             },
             {
                 path: "/dashboard/all-trainers",
-                element: <AllTrainersDash></AllTrainersDash>,
+                element: <AdminRoute><AllTrainersDash></AllTrainersDash></AdminRoute>,
             },
             {
                 path: "/dashboard/balance",
-                element: <BalancePage></BalancePage>,
+                element: <AdminRoute><BalancePage></BalancePage></AdminRoute>,
             },
         ]
     }
