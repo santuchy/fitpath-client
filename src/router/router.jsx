@@ -25,6 +25,7 @@ import BalancePage from "../pages/Dashboard/BalancePage";
 import PrivateRoute from "../routes/PrivateRoute";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
+import ErrorPage from './../pages/ErrorPage/ErrorPage';
 
 
 
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
     {
         path: "/",
         Component: RootLayout,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 index: true,
