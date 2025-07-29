@@ -3,6 +3,9 @@
 ## Project Overview
 FitPath is a cutting-edge fitness tracker platform that empowers individuals to lead healthier, more active lifestyles. This platform combines modern technology with fitness solutions, allowing users to track their progress, set goals, and engage with a vibrant community of like-minded individuals. Whether you're a beginner or an advanced fitness enthusiast, FitPath provides an immersive experience to help you achieve your wellness journey.
 
+## Live Website
+You can explore the live version of the FitPath platform here: [FitPath - Fitness Tracker](https://fit-path-client.netlify.app/)
+
 ## Tech Stack
 - **Frontend**: React.js, Tailwind CSS, Vite, React Router, React Hook Form, React Toastify, SweetAlert2, Recharts, Lottie React, Motion
 - **Backend**: Node.js, Express.js, MongoDB, Firebase, JWT Authentication
