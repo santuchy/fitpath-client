@@ -33,7 +33,7 @@ const DashboardLayout = () => {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sidebar */}
-      <div className="bg-[#f7f7f7] w-full lg:w-64 p-4 lg:min-h-screen shadow-md">
+      <div className="bg-orange-50 w-full lg:w-64 p-4 lg:min-h-screen shadow-md">
         {/* Mobile Menu Toggle */}
         <div className="flex justify-between items-center lg:hidden mb-4">
           <h2 className="text-xl font-bold">Dashboard</h2>
