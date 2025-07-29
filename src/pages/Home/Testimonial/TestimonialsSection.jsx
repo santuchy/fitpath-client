@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi"; // Importing arrow icons
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi"; 
+import Loading from "../../Loading/Loading";
 
 const TestimonialsSection = () => {
   const [reviews, setReviews] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get("http://localhost:3000/reviews").then((res) => setReviews(res.data));
@@ -19,6 +21,14 @@ const TestimonialsSection = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 < 0 ? reviews.length - 1 : prev - 1));
   };
+
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">

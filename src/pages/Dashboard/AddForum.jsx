@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from './../../context/AuthContext';
-import { FaPen } from "react-icons/fa"; // Optional icon for "Post"
+import { FaPen } from "react-icons/fa"; 
 
 const AddForum = () => {
   const { user } = useContext(AuthContext);

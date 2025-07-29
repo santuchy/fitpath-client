@@ -73,7 +73,7 @@ const Featured = () => {
               whileInView="visible"
               variants={fadeUp}
               whileHover={{ scale: 1.05, boxShadow: "0 8px 20px rgba(0,0,0,0.15)" }}
-              viewport={{ once: false }} // Make animation repeatable while scrolling
+              viewport={{ once: false }} 
             >
               <motion.div
                 initial="hidden"

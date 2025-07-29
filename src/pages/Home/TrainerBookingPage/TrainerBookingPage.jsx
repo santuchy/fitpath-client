@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
-import clsx from "clsx"; // For conditional styling (install with: npm install clsx)
+import clsx from "clsx"; 
+import Loading from "../../Loading/Loading";
 
 const TrainerBookingPage = () => {
   const { slotId } = useParams();
@@ -33,7 +34,7 @@ const TrainerBookingPage = () => {
     navigate(`/dashboard/payment/${slotId}?package=${selectedPackage}`);
   };
 
-  if (!slot || !trainer) return <p className="text-center text-gray-600">Loading...</p>;
+  if (!slot || !trainer) return <Loading></Loading>;
 
   return (
     <div className="max-w-4xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-md">

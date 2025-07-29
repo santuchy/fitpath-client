@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
+import Loading from "../../Loading/Loading";
 
 const AllClassesPage = () => {
+
+  useEffect(() => {
+      document.title = "All Classes | FitPath";
+    }, []);
+
   const [classes, setClasses] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const limit = 6;
   const totalPages = Math.ceil(total / limit);
@@ -24,8 +31,16 @@ const AllClassesPage = () => {
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    setPage(1); // Reset to first page on new search
+    setPage(1); 
   };
+
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-10">

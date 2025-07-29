@@ -7,13 +7,18 @@ import useUserRole from "../hooks/useUserRole";
 import welcomeAnimation from "../assets/Animations/welcome.json";
 
 const DashboardLayout = () => {
+
+  useEffect(() => {
+      document.title = "Dashboard | FitPath";
+    }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const [slotId, setSlotId] = useState(null);
   
   const { user } = useContext(AuthContext);
   const { role, loading } = useUserRole(user?.email);
   
-  const location = useLocation();  // Using location to track the current route
+  const location = useLocation();  
 
   useEffect(() => {
     const savedSlotId = localStorage.getItem("lastBookedSlotId");

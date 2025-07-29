@@ -15,7 +15,7 @@ const AllTrainersDash = () => {
           Authorization: `Bearer ${user.accessToken}`,
         },
       });
-      setTrainers(res.data); // server already filters by role
+      setTrainers(res.data); 
     } catch (err) {
       console.error("Failed to fetch trainers", err);
     }
@@ -47,7 +47,7 @@ const AllTrainersDash = () => {
         }
       );
       if (res.data.success) {
-        fetchTrainers(); // re-fetch from DB to reflect correct role
+        fetchTrainers(); 
       } else {
         alert("Failed to demote. Already a member?");
       }

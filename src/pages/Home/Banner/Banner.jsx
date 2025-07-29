@@ -1,9 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectFade } from "swiper/modules";  // Import EffectFade module
+import { Autoplay, Pagination, EffectFade } from "swiper/modules";  
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade";  // Import the fade effect CSS
+import "swiper/css/effect-fade";  
 
 import banner1 from "../../../assets/banner image/banner1.png";
 import banner2 from "../../../assets/banner image/banner2.png";
@@ -16,14 +16,13 @@ const Banner = () => {
   return (
     <div className="max-w-full mx-auto py-5">
       <Swiper
-        modules={[EffectFade, Pagination, Autoplay]} // Add the necessary modules
-        spaceBetween={0} // No gap between slides
-        slidesPerView={1} // One slide at a time
-        effect="fade" // Enable fade effect
-        pagination={{ clickable: true }} // Enables clickable pagination dots
-        autoplay={{ delay: 3000 }} // Auto-play with a 3-second delay
-        loop={true} // Loops the slides
-        className="relative w-full h" // Full screen height and width for the swiper container
+        modules={[EffectFade, Pagination, Autoplay]} 
+        spaceBetween={0} 
+        slidesPerView={1} 
+        pagination={{ clickable: true }} 
+        autoplay={{ delay: 3000 }} 
+        loop={true} 
+        className="relative w-full h" 
       >
         {/* Slider 1 */}
         <SwiperSlide>

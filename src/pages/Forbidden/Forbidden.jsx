@@ -14,7 +14,7 @@ const Forbidden = () => {
         
         <button
           style={styles.button}
-          onClick={() => window.location.href = '/'} // Redirect to the home page or any other page
+          onClick={() => window.location.href = '/'} 
         >
           Go Back to Home
         </button>
@@ -26,11 +26,11 @@ const Forbidden = () => {
 const styles = {
   container: {
     display: 'flex',
-    justifyContent: 'center', // Center horizontally
-    alignItems: 'center',     // Center vertically
-    height: '100vh',          // Full screen height
+    justifyContent: 'center', 
+    alignItems: 'center',     
+    height: '100vh',          
     backgroundColor: '#f5f5f5',
-    flexDirection: 'column',  // Align items in a column
+    flexDirection: 'column',  
   },
   content: {
     textAlign: 'center',
@@ -39,11 +39,11 @@ const styles = {
     padding: '40px',
     
     display: 'flex',
-    flexDirection: 'column',  // Stack content vertically
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center',     // Center horizontally
-    width: '100%',            // Ensure it takes up full width within container
-    maxWidth: '500px',        // Max width for content
+    flexDirection: 'column',  
+    justifyContent: 'center', 
+    alignItems: 'center',     
+    width: '100%',            
+    maxWidth: '500px',        
   },
   title: {
     fontSize: '48px',
@@ -56,9 +56,9 @@ const styles = {
     color: '#7f8c8d',
   },
   lottie: {
-    width: '300px',          // Animation width
-    height: '300px',         // Animation height
-    marginTop: '30px',       // Space between the animation and content above
+    width: '300px',          
+    height: '300px',         
+    marginTop: '30px',       
   },
   button: {
     marginTop: '30px',

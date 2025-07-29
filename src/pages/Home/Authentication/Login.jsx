@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AuthContext } from './../../../context/AuthContext';
 import axios from 'axios';
 import Lottie from 'lottie-react';
-import loginAnimation from '../../../assets/Animations/login.json'; // Path to your Lottie animation
+import loginAnimation from '../../../assets/Animations/login.json'; 
 
 const Login = () => {
   useEffect(() => {
@@ -24,7 +24,7 @@ const Login = () => {
         // Update user info in the database
         const userInfo = {
           email: user.email,
-          role: 'user', // default role
+          role: 'user', 
           created_at: new Date().toISOString(),
           last_log_in: new Date().toISOString()
         };

@@ -6,7 +6,7 @@ import Loading from './../Loading/Loading';
 
 const AppliedTrainersPage = () => {
   const [applied, setApplied] = useState([]);
-  const [loading, setLoading] = useState(true); // To handle loading state
+  const [loading, setLoading] = useState(true); 
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const AppliedTrainersPage = () => {
       } catch (error) {
         console.error("Failed to fetch applied trainers:", error);
       } finally {
-        setLoading(false); // Turn off the loading spinner
+        setLoading(false); 
       }
     };
 
@@ -34,7 +34,7 @@ const AppliedTrainersPage = () => {
     try {
       // Send POST request to confirm the trainer and add to the users collection
       const res = await axios.post("http://localhost:3000/confirm-trainer", {
-        email: email, // Sending email to confirm the trainer
+        email: email, 
       });
 
       // Remove confirmed trainer from the applied list
@@ -66,14 +66,14 @@ const AppliedTrainersPage = () => {
       await axios.delete("http://localhost:3000/reject-trainer", {
         data: { email, feedback },
       });
-      setApplied((prev) => prev.filter((t) => t.email !== email)); // Remove rejected trainer from the list
+      setApplied((prev) => prev.filter((t) => t.email !== email)); 
     } catch (error) {
       console.error("Failed to reject the trainer:", error);
     }
   };
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000);
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   if (loading) {

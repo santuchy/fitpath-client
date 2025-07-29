@@ -10,17 +10,17 @@ import Loading from './pages/Loading/Loading';
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulate loading time or check if the app is ready (e.g., routing/data loading)
+  
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false); // Simulate loading complete
-    }, 3000); // You can change this to whatever makes sense for your use case
+      setIsLoading(false); 
+    }, 3000); 
   }, []);
 
   return (
     <>
       {isLoading ? (
-        <Loading /> // Show loading animation during loading
+        <Loading /> 
       ) : (
         <RouterProvider router={router} />
       )}
@@ -28,11 +28,14 @@ const App = () => {
   );
 };
 
-createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root');
+const root = createRoot(container); 
+
+root.render( 
   <StrictMode>
     <AuthProvider>
-      <App />  {/* Render the App which contains preloader */}
+      <App />  
       <ToastContainer position="top-center" autoClose={2000} />
     </AuthProvider>
-  </StrictMode>,
+  </StrictMode>
 );

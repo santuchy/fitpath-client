@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { Link } from "react-router";
+import Loading from "../../Loading/Loading";
 
 const LatestForumPosts = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get("http://localhost:3000/forums/latest").then((res) => setPosts(res.data));
@@ -17,6 +19,14 @@ const LatestForumPosts = () => {
     hiddenUp: { opacity: 0, y: -50 },
     visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.6 } },
   };
+
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <motion.div

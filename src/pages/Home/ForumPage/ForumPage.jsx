@@ -3,12 +3,18 @@ import axios from "axios";
 import { FaArrowUp, FaArrowDown, FaCrown, FaUserShield } from "react-icons/fa";
 import { AuthContext } from './../../../context/AuthContext';
 import { motion } from "framer-motion";
+import Loading from "../../Loading/Loading";
 
 const ForumPage = () => {
-  const { user } = useContext(AuthContext); // Get user from AuthContext
+  useEffect(() => {
+      document.title = "Forum | FitPath";
+    }, []);
+
+  const { user } = useContext(AuthContext); 
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   // Fetch posts from server
   const fetchPosts = async () => {
@@ -16,10 +22,10 @@ const ForumPage = () => {
       const res = await axios.get(`http://localhost:3000/forums?page=${page}`);
       const modified = res.data.forums.map((post, index) => {
         // Fake some trainer posts for UI display
-        const isTrainerPost = Math.random() < 0.5; // Randomly assign role (50% chance)
+        const isTrainerPost = Math.random() < 0.5; 
         return {
           ...post,
-          authorEmail: isTrainerPost ? `trainer${index}@fitpath.com` : user?.email, // Dynamically assign email to the post
+          authorEmail: isTrainerPost ? `trainer${index}@fitpath.com` : user?.email, 
           showTrainerBadge: isTrainerPost,
         };
       });
@@ -40,7 +46,7 @@ const ForumPage = () => {
   const vote = async (id, type) => {
     try {
       await axios.patch(`http://localhost:3000/forums/vote/${id}`, { type });
-      fetchPosts(); // Refetch posts to update vote count without changing the role
+      fetchPosts(); 
     } catch (error) {
       console.error("Error during voting:", error);
     }
@@ -70,6 +76,14 @@ const ForumPage = () => {
     return null;
   };
 
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-8">
       <motion.h2
@@ -92,7 +106,7 @@ const ForumPage = () => {
           <h3 className="text-2xl font-semibold text-[#2d3748] mb-4">{post.title}</h3>
           <p className="text-gray-600 text-sm mb-4">{post.content}</p>
           <div className="flex items-center text-sm text-gray-700 mb-3">
-            {renderBadge(post)} {/* Render badge dynamically */}
+            {renderBadge(post)} 
           </div>
           <div className="flex gap-6 mt-2 text-sm items-center">
             <button

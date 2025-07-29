@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { motion } from "framer-motion";
+import Loading from "../../Loading/Loading";
 
 const AllTrainersPage = () => {
+
+  useEffect(() => {
+      document.title = "All Trainers | FitPath";
+    }, []);
+
   const [trainers, setTrainers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,17 +35,12 @@ const AllTrainersPage = () => {
     fetchTrainers();
   }, []);
 
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
   if (loading) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="text-center py-10"
-      >
-        <p className="text-xl text-gray-700">Loading trainers...</p>
-      </motion.div>
-    );
+    return <Loading />;
   }
 
   if (error) {

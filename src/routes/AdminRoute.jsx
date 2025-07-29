@@ -14,13 +14,13 @@ const { role, loading: roleLoading } = useUserRole(user?.email);
 
     // Log to check if user and role are properly set
     useEffect(() => {
-        console.log('User:', user);  // Check user
-        console.log('Role:', role);  // Check role
+        console.log('User:', user);  
+        console.log('Role:', role);  
     }, [user, role]);
 
      // Combine loading states
   if (authLoading || roleLoading) {
-    return <div>Loading...</div>; // Wait for both user and role to load
+    return <div>Loading...</div>; 
   }
 
     if (!user || role !== 'admin'){

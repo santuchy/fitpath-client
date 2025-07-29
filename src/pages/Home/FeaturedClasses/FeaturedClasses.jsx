@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import Loading from "../../Loading/Loading";
 
 const FeaturedClasses = () => {
   const [featured, setFeatured] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get("http://localhost:3000/classes/featured").then((res) => {
       setFeatured(res.data);
     });
   }, []);
+
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <motion.div

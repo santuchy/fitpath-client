@@ -39,7 +39,7 @@ const ManageSlotsPage = () => {
       try {
         await axios.delete(`http://localhost:3000/slots/${id}`);
         Swal.fire("Deleted!", "The slot has been deleted.", "success");
-        setSlots((prevSlots) => prevSlots.filter((slot) => slot._id !== id)); // Remove deleted slot from list
+        setSlots((prevSlots) => prevSlots.filter((slot) => slot._id !== id)); 
       } catch (err) {
         Swal.fire("Error!", `Failed to delete slot: ${err.message}`, "error");
       }
