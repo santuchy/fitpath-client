@@ -9,7 +9,7 @@ const useUserRole = (email) => {
     if (!email) return; // ⛔ stop if email is missing
 
     setLoading(true);
-    axios.get(`http://localhost:3000/users/role/${email}`)
+    axios.get(`https://fit-path-server.vercel.app/users/role/${email}`)
       .then(res => {
         setRole(res.data.role);
         setLoading(false);

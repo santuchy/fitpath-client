@@ -9,7 +9,7 @@ const LatestForumPosts = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/forums/latest").then((res) => setPosts(res.data));
+    axios.get("https://fit-path-server.vercel.app/forums/latest").then((res) => setPosts(res.data));
   }, []);
 
   // Motion variants for cards

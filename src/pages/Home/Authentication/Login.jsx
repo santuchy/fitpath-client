@@ -29,7 +29,7 @@ const Login = () => {
           last_log_in: new Date().toISOString()
         };
 
-        const res = await axios.post('http://localhost:3000/users', userInfo);
+        const res = await axios.post('https://fit-path-server.vercel.app/users', userInfo);
         console.log(res.data);
 
         setUser(user);

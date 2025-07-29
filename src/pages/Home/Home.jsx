@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from './Banner/Banner';
 import Featured from './Featured/Featured';
 import About from './About/About';
@@ -9,10 +9,12 @@ import LatestForumPosts from './LatestForumPosts/LatestForumPosts';
 import FeaturedClasses from './FeaturedClasses/FeaturedClasses';
 
 
-
-
-
 const Home = () => {
+
+    useEffect(() => {
+        document.title = "Home | FitPath";
+      }, []);
+      
     return (
         <div>
             <Banner></Banner>

@@ -18,7 +18,7 @@ const AllTrainersPage = () => {
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/trainers");
+        const res = await axios.get("https://fit-path-server.vercel.app/trainers");
         if (res.data && Array.isArray(res.data)) {
           setTrainers(res.data);
         } else {

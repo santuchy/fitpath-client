@@ -15,7 +15,7 @@ const BalancePage = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3000/chart-stats", {
+    axios.get("https://fit-path-server.vercel.app/chart-stats", {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },

@@ -16,7 +16,7 @@ const TrainerBookedPage = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    axios.get(`http://localhost:3000/booked-trainers/${user.email}`, {
+    axios.get(`https://fit-path-server.vercel.app/booked-trainers/${user.email}`, {
       headers: { Authorization: `Bearer ${user.accessToken}` }
     })
       .then(res => setBookings(res.data))
@@ -26,7 +26,7 @@ const TrainerBookedPage = () => {
   const handleSubmitReview = async () => {
     if (!feedback || rating === 0 || !selectedBooking) return;
     try {
-      await axios.post("http://localhost:3000/reviews", {
+      await axios.post("https://fit-path-server.vercel.app/reviews", {
         trainerEmail: selectedBooking.trainerEmail,
         userEmail: user.email,
         userName: user.displayName,

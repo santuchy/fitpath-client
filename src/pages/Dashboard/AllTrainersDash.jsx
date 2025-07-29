@@ -10,7 +10,7 @@ const AllTrainersDash = () => {
 
   const fetchTrainers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/trainers", {
+      const res = await axios.get("https://fit-path-server.vercel.app/trainers", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -39,7 +39,7 @@ const AllTrainersDash = () => {
     if (!confirm("Are you sure you want to demote this trainer to member?")) return;
     try {
       const res = await axios.patch(
-        `http://localhost:3000/trainers/demote/${email}`,
+        `https://fit-path-server.vercel.app/trainers/demote/${email}`,
         {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,

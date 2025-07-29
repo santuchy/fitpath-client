@@ -25,7 +25,7 @@ const AddSlotPage = () => {
 
   useEffect(() => {
     // Fetching available classes for slot selection
-    axios.get("http://localhost:3000/classes").then((res) => {
+    axios.get("https://fit-path-server.vercel.app/classes").then((res) => {
       const options = res.data.map((cls) => ({
         value: cls.name,
         label: cls.name,
@@ -46,7 +46,7 @@ const AddSlotPage = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/slots", slotData);
+      const res = await axios.post("https://fit-path-server.vercel.app/slots", slotData);
       if (res.data.insertedId || res.data.acknowledged) {
         Swal.fire("Success!", "Slot added successfully!", "success");
         reset();

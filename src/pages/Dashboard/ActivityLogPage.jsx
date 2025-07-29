@@ -15,7 +15,7 @@ const ActivityLogPage = () => {
   useEffect(() => {
     if (!user?.email) return;
     axios
-      .get(`http://localhost:3000/my-applications/${user.email}`)
+      .get(`https://fit-path-server.vercel.app/my-applications/${user.email}`)
       .then((res) => setApplications(res.data))
       .catch((err) => console.error("Failed to fetch applications:", err));
   }, [user?.email]);

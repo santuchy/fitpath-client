@@ -32,7 +32,7 @@ const BeTrainerPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/available-slots")
+      .get("https://fit-path-server.vercel.app/available-slots")
       .then((res) => setAvailableSlots(res.data))
       .catch((err) => console.error("Error fetching available slots:", err));
   }, []);
@@ -74,7 +74,7 @@ const BeTrainerPage = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/applied-trainers", trainerData);
+      const res = await axios.post("https://fit-path-server.vercel.app/applied-trainers", trainerData);
       if (res.data.insertedId) {
         Swal.fire("Success", "Trainer Application Submitted!", "success");
         setAge("");

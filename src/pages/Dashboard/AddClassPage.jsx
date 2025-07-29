@@ -10,7 +10,7 @@ const AddClassPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/classes", data);
+      const res = await axios.post("https://fit-path-server.vercel.app/classes", data);
       if (res.data.insertedId || res.data.acknowledged) {
         Swal.fire("Success!", "Class added successfully!", "success");
         reset();

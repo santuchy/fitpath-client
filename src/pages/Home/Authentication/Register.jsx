@@ -57,7 +57,7 @@ const Register = () => {
           last_log_in: new Date().toISOString()
         };
 
-        const userRes = await axios.post('http://localhost:3000/users', userInfo);
+        const userRes = await axios.post('https://fit-path-server.vercel.app/users', userInfo);
         console.log(userRes.data);
 
         // Update Firebase user profile

@@ -29,7 +29,7 @@ const CheckoutForm = ({ slot, trainer, selectedPackage, user }) => {
 
     setProcessing(true);
     try {
-      const res = await axios.post("http://localhost:3000/create-payment-intent", {
+      const res = await axios.post("https://fit-path-server.vercel.app/create-payment-intent", {
         slotId: slot._id,
         package: selectedPackage,
       });
@@ -61,7 +61,7 @@ const CheckoutForm = ({ slot, trainer, selectedPackage, user }) => {
           date: new Date().toISOString(),
         };
 
-        await axios.post("http://localhost:3000/payments", paymentInfo);
+        await axios.post("https://fit-path-server.vercel.app/payments", paymentInfo);
       }
     } catch (err) {
       console.error(err);
@@ -117,9 +117,9 @@ const PaymentPage = () => {
 
   useEffect(() => {
     // Fetch slot and trainer
-    axios.get(`http://localhost:3000/slots/${slotId}`).then((res) => {
+    axios.get(`https://fit-path-server.vercel.app/slots/${slotId}`).then((res) => {
       setSlot(res.data);
-      return axios.get(`http://localhost:3000/trainers/${res.data.trainerEmail}`);
+      return axios.get(`https://fit-path-server.vercel.app/trainers/${res.data.trainerEmail}`);
     }).then((res) => setTrainer(res.data));
   }, [slotId]);
 

@@ -10,7 +10,11 @@ const ManageSlotsPage = () => {
 
   const fetchSlots = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/slots?email=${user.email}`);
+      const res = await axios.get(`https://fit-path-server.vercel.app/slots?email=${user.email}`, {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
       setSlots(res.data); 
     } catch (error) {
       console.error("Failed to fetch slots:", error);
@@ -37,7 +41,7 @@ const ManageSlotsPage = () => {
 
     if (confirm.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/slots/${id}`);
+        await axios.delete(`https://fit-path-server.vercel.app/slots/${id}`);
         Swal.fire("Deleted!", "The slot has been deleted.", "success");
         setSlots((prevSlots) => prevSlots.filter((slot) => slot._id !== id)); 
       } catch (err) {

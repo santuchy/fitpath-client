@@ -8,7 +8,7 @@ const FeaturedClasses = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/classes/featured").then((res) => {
+    axios.get("https://fit-path-server.vercel.app/classes/featured").then((res) => {
       setFeatured(res.data);
     });
   }, []);

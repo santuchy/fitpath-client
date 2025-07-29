@@ -13,10 +13,10 @@ const TrainerBookingPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/slots/${slotId}`)
+      .get(`https://fit-path-server.vercel.app/slots/${slotId}`)
       .then((res) => {
         setSlot(res.data);
-        return axios.get(`http://localhost:3000/trainers/${res.data.trainerEmail}`);
+        return axios.get(`https://fit-path-server.vercel.app/trainers/${res.data.trainerEmail}`);
       })
       .then((res) => setTrainer(res.data))
       .catch((err) => console.error("Error fetching data:", err));

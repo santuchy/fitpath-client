@@ -11,7 +11,7 @@ const NewsletterSection = () => {
     if (!name || !email) return alert("Please provide both name and email");
 
     try {
-      await axios.post("http://localhost:3000/newsletter-subscribe", {
+      await axios.post("https://fit-path-server.vercel.app/newsletter-subscribe", {
         name,
         email,
       });

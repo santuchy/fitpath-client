@@ -13,7 +13,7 @@ const AppliedTrainersPage = () => {
     // Fetch the applied trainers when the component mounts
     const fetchAppliedTrainers = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/applied-trainers", {
+        const res = await axios.get("https://fit-path-server.vercel.app/applied-trainers", {
           headers: {
             Authorization: `Bearer ${user.accessToken}`
           }
@@ -33,7 +33,7 @@ const AppliedTrainersPage = () => {
   const handleConfirm = async (email) => {
     try {
       // Send POST request to confirm the trainer and add to the users collection
-      const res = await axios.post("http://localhost:3000/confirm-trainer", {
+      const res = await axios.post("https://fit-path-server.vercel.app/confirm-trainer", {
         email: email, 
       });
 
@@ -63,7 +63,7 @@ const AppliedTrainersPage = () => {
     if (!feedback) return;
 
     try {
-      await axios.delete("http://localhost:3000/reject-trainer", {
+      await axios.delete("https://fit-path-server.vercel.app/reject-trainer", {
         data: { email, feedback },
       });
       setApplied((prev) => prev.filter((t) => t.email !== email)); 

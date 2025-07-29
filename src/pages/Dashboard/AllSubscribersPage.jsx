@@ -13,7 +13,7 @@ const AllSubscribersPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/newsletter-subscribers", {
+      .get("https://fit-path-server.vercel.app/newsletter-subscribers", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

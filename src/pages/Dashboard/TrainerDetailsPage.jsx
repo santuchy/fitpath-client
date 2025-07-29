@@ -12,10 +12,10 @@ const TrainerDetailsPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/trainer/${id}`).then((res) => {
+    axios.get(`https://fit-path-server.vercel.app/trainer/${id}`).then((res) => {
       setTrainer(res.data);
       axios
-        .get(`http://localhost:3000/slots/trainer/${res.data.email}`)
+        .get(`https://fit-path-server.vercel.app/slots/trainer/${res.data.email}`)
         .then((res) => {
           setSlots(res.data);
         });

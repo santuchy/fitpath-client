@@ -11,7 +11,7 @@ const TestimonialsSection = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/reviews").then((res) => setReviews(res.data));
+    axios.get("https://fit-path-server.vercel.app/reviews").then((res) => setReviews(res.data));
   }, []);
 
   const nextSlide = () => {

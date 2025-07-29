@@ -38,7 +38,7 @@ const AuthProvider = ({children}) => {
        // Fetch role based on email
   const fetchUserRole = async (email) => {
     try {
-      const response = await axios.get(`http://localhost:3000/users/role/${email}`); // Pass email instead of UID
+      const response = await axios.get(`https://fit-path-server.vercel.app/users/role/${email}`); // Pass email instead of UID
       setRole(response.data.role); // Set the role in state
     } catch (error) {
       console.error("Error fetching user role:", error);

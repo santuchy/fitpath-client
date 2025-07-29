@@ -19,7 +19,7 @@ const AddForum = () => {
       authorEmail: user.email,
     };
 
-    await axios.post("http://localhost:3000/forums", newPost);
+    await axios.post("https://fit-path-server.vercel.app/forums", newPost);
     alert("Forum post added!");
     setTitle("");
     setContent("");

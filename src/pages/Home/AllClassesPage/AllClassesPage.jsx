@@ -22,7 +22,7 @@ const AllClassesPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/paginated-classes?page=${page}&search=${search}`)
+      .get(`https://fit-path-server.vercel.app/paginated-classes?page=${page}&search=${search}`)
       .then((res) => {
         setClasses(res.data.classes);
         setTotal(res.data.total);

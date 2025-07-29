@@ -19,7 +19,7 @@ const ForumPage = () => {
   // Fetch posts from server
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/forums?page=${page}`);
+      const res = await axios.get(`https://fit-path-server.vercel.app/forums?page=${page}`);
       const modified = res.data.forums.map((post, index) => {
         // Fake some trainer posts for UI display
         const isTrainerPost = Math.random() < 0.5; 
@@ -45,7 +45,7 @@ const ForumPage = () => {
   // Handle voting (upvote or downvote)
   const vote = async (id, type) => {
     try {
-      await axios.patch(`http://localhost:3000/forums/vote/${id}`, { type });
+      await axios.patch(`https://fit-path-server.vercel.app/forums/vote/${id}`, { type });
       fetchPosts(); 
     } catch (error) {
       console.error("Error during voting:", error);

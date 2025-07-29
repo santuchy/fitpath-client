@@ -26,6 +26,7 @@ import PrivateRoute from "../routes/PrivateRoute";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import ErrorPage from './../pages/ErrorPage/ErrorPage';
+import TrainerRoute from "../routes/TrainerRoute";
 
 
 
@@ -87,7 +88,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/manage-slots",
-                element: <ManageSlotsPage></ManageSlotsPage>,
+                element: <TrainerRoute><ManageSlotsPage></ManageSlotsPage></TrainerRoute>,
             },
             {
                 path: "/dashboard/be-a-trainer",
