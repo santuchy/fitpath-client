@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Select from "react-select";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Loading from './../Loading/Loading';
 
 // Days Options
 const daysOptions = [
@@ -27,6 +28,7 @@ const BeTrainerPage = () => {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [isAvailable, setIsAvailable] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -86,6 +88,14 @@ const BeTrainerPage = () => {
       Swal.fire("Error", "Could not submit application", "error");
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-3xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">

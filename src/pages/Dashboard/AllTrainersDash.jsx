@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from './../../context/AuthContext';
+import Loading from './../Loading/Loading';
 
 const AllTrainersDash = () => {
   const [trainers, setTrainers] = useState([]);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
   const fetchTrainers = async () => {
     try {
@@ -21,7 +23,17 @@ const AllTrainersDash = () => {
 
   useEffect(() => {
     fetchTrainers();
+  },);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+
 
   const demote = async (email) => {
     if (!confirm("Are you sure you want to demote this trainer to member?")) return;

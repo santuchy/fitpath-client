@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from './../../context/AuthContext';
 import { Dialog } from "@headlessui/react";
 import { FaStar } from "react-icons/fa";
+import Loading from './../Loading/Loading';
 
 const TrainerBookedPage = () => {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const TrainerBookedPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [rating, setRating] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.email) return;
@@ -39,8 +41,19 @@ const TrainerBookedPage = () => {
       console.error("Review submission failed:", err);
     }
   };
+  
+  
+ useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (bookings.length === 0) return <p className="text-center mt-10">No bookings found.</p>;
+
+ 
 
   return (
     <div className="max-w-4xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-lg">

@@ -2,12 +2,14 @@ import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from 'framer-motion';
+import Loading from './../Loading/Loading';
 
 const TrainerDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [trainer, setTrainer] = useState(null);
   const [slots, setSlots] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/trainer/${id}`).then((res) => {
@@ -19,6 +21,14 @@ const TrainerDetailsPage = () => {
         });
     });
   }, [id]);
+
+   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!trainer) return <p className="text-center text-gray-600">Loading...</p>;
 

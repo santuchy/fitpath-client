@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { AuthContext } from './../../context/AuthContext';
+import Loading from './../Loading/Loading';
 
 const BalancePage = () => {
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const [data, setData] = useState({
     totalBalance: 0,
@@ -19,6 +21,14 @@ const BalancePage = () => {
       },
     }).then((res) => setData(res.data));
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-10">

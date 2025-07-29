@@ -4,12 +4,14 @@ import { useEffect, useState, useContext } from "react";
 import Select from "react-select";
 import { AuthContext } from './../../context/AuthContext';
 import axios from "axios";
+import Loading from "../Loading/Loading";
 
 const AddSlotPage = () => {
   const { register, handleSubmit, reset } = useForm();
   const [selectedDays, setSelectedDays] = useState([]);
   const [classOptions, setClassOptions] = useState([]);
-  const { user } = useContext(AuthContext);  // Get logged-in user's info (firebase)
+  const { user } = useContext(AuthContext);  
+  const [loading, setLoading] = useState(true);
 
   const dayOptions = [
     { value: "Sun", label: "Sun" },
@@ -34,13 +36,13 @@ const AddSlotPage = () => {
 
   const onSubmit = async (data) => {
     const slotData = {
-      name: user.displayName,           // Trainer's name
-      trainerEmail: user.email,         // Consistent field name
+      name: user.displayName,           
+      trainerEmail: user.email,         
       days: selectedDays.map((d) => d.value),
       slotName: data.slotName,
       slotTime: data.slotTime,
       className: data.className,
-      isAvailable: true,                // ✅ This is the missing part
+      isAvailable: true,                
     };
 
     try {
@@ -56,6 +58,14 @@ const AddSlotPage = () => {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-8 mt-12 bg-white rounded-lg shadow-xl">
       <h2 className="text-3xl font-bold text-center mb-8 text-[#f34e3a]">Add New Slot</h2>
@@ -65,7 +75,7 @@ const AddSlotPage = () => {
         <div>
           <label className="block font-semibold text-gray-700 mb-2">Trainer Name</label>
           <input
-            value={user?.displayName}  // Dynamically fetch name from Firebase
+            value={user?.displayName} 
             readOnly
             className="w-full px-4 py-3 border border-gray-300 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all duration-300"
           />
@@ -75,7 +85,7 @@ const AddSlotPage = () => {
         <div>
           <label className="block font-semibold text-gray-700 mb-2">Trainer Email</label>
           <input
-            value={user?.email}  // Dynamically fetch email from Firebase
+            value={user?.email}  
             readOnly
             className="w-full px-4 py-3 border border-gray-300 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f34e3a] transition-all duration-300"
           />

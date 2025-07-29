@@ -2,15 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from './../../context/AuthContext'; 
+import Loading from "../Loading/Loading";
 
 const ManageSlotsPage = () => {
   const [slots, setSlots] = useState([]);
-  const { user, loading } = useContext(AuthContext);  // Accessing user data from AuthContext
+  const { user, loading } = useContext(AuthContext);  
 
   const fetchSlots = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/slots?email=${user.email}`);
-      setSlots(res.data); // Store slots in state
+      setSlots(res.data); 
     } catch (error) {
       console.error("Failed to fetch slots:", error);
     }
@@ -18,7 +19,7 @@ const ManageSlotsPage = () => {
 
   useEffect(() => {
     if (!loading && user?.email) {
-      fetchSlots();  // Fetch slots only when the user is logged in
+      fetchSlots();  
     }
   }, [user, loading]);
 
@@ -47,7 +48,7 @@ const ManageSlotsPage = () => {
 
   // If loading or user is not available, show appropriate messages
   if (loading) {
-    return <div className="text-center">Loading...</div>;
+    return <Loading></Loading>;
   }
 
   if (!user) {

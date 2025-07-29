@@ -6,8 +6,8 @@ import Lottie from "lottie-react";
 const Loading = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      {/* Lottie Animation Only */}
-      <Lottie animationData={loadingAnimation} loop autoplay className="w-32 h-32" />
+      
+      <Lottie animationData={loadingAnimation} loop autoplay className="w-50 h-50" />
     </div>
   );
 };

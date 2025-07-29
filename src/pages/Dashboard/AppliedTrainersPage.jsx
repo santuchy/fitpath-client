@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from './../../context/AuthContext';
+import Loading from './../Loading/Loading';
 
 const AppliedTrainersPage = () => {
   const [applied, setApplied] = useState([]);
@@ -71,12 +72,12 @@ const AppliedTrainersPage = () => {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
+
   if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <p className="text-lg text-gray-500">Loading applied trainers...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

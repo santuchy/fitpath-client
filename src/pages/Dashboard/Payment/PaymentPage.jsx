@@ -4,11 +4,12 @@ import { Elements, useStripe, useElements, CardElement } from "@stripe/react-str
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from './../../../context/AuthContext';
+import Loading from "../../Loading/Loading";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Key);
 
 
-// ✅ CheckoutForm Component
+
 const CheckoutForm = ({ slot, trainer, selectedPackage, user }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -122,7 +123,7 @@ const PaymentPage = () => {
     }).then((res) => setTrainer(res.data));
   }, [slotId]);
 
-  if (!slot || !trainer || !user) return <p className="text-center text-gray-600">Loading...</p>;
+  if (!slot || !trainer || !user) return <Loading></Loading>;
 
   return (
     <div className="max-w-2xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-xl">

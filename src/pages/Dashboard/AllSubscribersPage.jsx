@@ -1,10 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from './../../context/AuthContext';
+import Loading from './../Loading/Loading';
 
 const AllSubscribersPage = () => {
   const [subscribers, setSubscribers] = useState([]);
   const { user } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(true);
+
+  
 
   useEffect(() => {
     axios
@@ -16,6 +21,14 @@ const AllSubscribersPage = () => {
       .then((res) => setSubscribers(res.data))
       .catch((err) => console.error("Failed to fetch subscribers:", err));
   }, [user.accessToken]);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-lg">

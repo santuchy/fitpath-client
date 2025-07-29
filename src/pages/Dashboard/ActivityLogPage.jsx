@@ -3,12 +3,14 @@ import axios from "axios";
 import { AuthContext } from './../../context/AuthContext';
 import { Dialog } from "@headlessui/react";
 import { FaEye } from "react-icons/fa";
+import Loading from "../Loading/Loading";
 
 const ActivityLogPage = () => {
   const { user } = useContext(AuthContext);
   const [applications, setApplications] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rejectionMessage, setRejectionMessage] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.email) return;
@@ -22,6 +24,14 @@ const ActivityLogPage = () => {
     setRejectionMessage(message || "No message provided.");
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-lg">
