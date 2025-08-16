@@ -27,6 +27,8 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import ErrorPage from './../pages/ErrorPage/ErrorPage';
 import TrainerRoute from "../routes/TrainerRoute";
+import Privacy from "../pages/Home/Privacy/Privacy";
+import Terms from "../pages/Home/Terms/Terms";
 
 
 
@@ -71,6 +73,14 @@ export const router = createBrowserRouter([
             {
                 path:'/forbidden',
                 Component: Forbidden,
+            },
+            {
+                path:'/privacy',
+                Component: Privacy,
+            },
+            {
+                path:'/terms',
+                Component: Terms,
             },
         ]
     },
