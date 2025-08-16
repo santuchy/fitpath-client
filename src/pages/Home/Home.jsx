@@ -7,6 +7,7 @@ import NewsletterSection from './Newsletter/NewsletterSection';
 import TeamSection from './TeamSection/TeamSection';
 import LatestForumPosts from './LatestForumPosts/LatestForumPosts';
 import FeaturedClasses from './FeaturedClasses/FeaturedClasses';
+import FAQSection from './FAQSection/FAQSection';
 
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
             <LatestForumPosts></LatestForumPosts>
             <NewsletterSection></NewsletterSection>
             <TeamSection></TeamSection>
+            <FAQSection></FAQSection>
         </div>
     );
 };
