@@ -27,7 +27,7 @@ const About = () => {
 
         {/* Right Image */}
         <motion.div
-          className="flex-1"
+          className=""
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}

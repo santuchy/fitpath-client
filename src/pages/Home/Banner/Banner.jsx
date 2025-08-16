@@ -1,8 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectFade } from "swiper/modules";  
+import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade";  
+import "swiper/css/effect-fade";
 
 import banner1 from "../../../assets/banner image/banner1.png";
 import banner2 from "../../../assets/banner image/banner2.png";
@@ -15,18 +15,18 @@ const Banner = () => {
   return (
     <div className="max-w-full mx-auto py-5">
       <Swiper
-        modules={[EffectFade, Pagination, Autoplay]} 
-        spaceBetween={0} 
-        slidesPerView={1} 
-        pagination={{ clickable: true }} 
-        autoplay={{ delay: 3000 }} 
-        loop={true} 
+        modules={[EffectFade, Pagination, Autoplay]}
+        spaceBetween={0}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000 }}
+        loop={true}
         className="relative w-full h"
       >
         {/* Slider 1 */}
         <SwiperSlide>
           <div className="relative w-full">
-            <img src={banner1} alt="Banner 1" className="w-full"/>
+            <img src={banner1} alt="Banner 1" className="w-full" />
             <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
             <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 text-center text-white z-10 px-4 sm:px-6 md:px-8">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4">
@@ -37,7 +37,8 @@ const Banner = () => {
               </p>
               <Link
                 to="/classes"
-                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base"
+                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base 
+             transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-[#f34e3a]/40"
               >
                 Explore Classes
               </Link>
@@ -48,18 +49,19 @@ const Banner = () => {
         {/* Slider 2 */}
         <SwiperSlide>
           <div className="relative w-full">
-            <img src={banner2} alt="Banner 2" className="w-full"/>
+            <img src={banner2} alt="Banner 2" className="w-full" />
             <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
             <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 text-center text-white z-10 px-4 sm:px-6 md:px-8">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4">
-                Transform Your Fitness Journey with <span className="text-[#BE1C20]">Fit</span><span className="text-[#03466e]">Path</span>
+                Push Beyond Limits with Every Step
               </h1>
               <p className="text-xs sm:text-base md:text-lg mb-6 sm:block hidden">
-                Track your workouts, connect with top trainers, and become your best self one rep at a time.
+                Log your progress, stay motivated, and challenge yourself to achieve more than you ever thought possible.
               </p>
               <Link
                 to="/classes"
-                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base"
+                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base 
+             transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-[#f34e3a]/40"
               >
                 Explore Classes
               </Link>
@@ -70,18 +72,19 @@ const Banner = () => {
         {/* Slider 3 */}
         <SwiperSlide>
           <div className="relative w-full">
-            <img src={banner3} alt="Banner 3" className="w-full"/>
+            <img src={banner3} alt="Banner 3" className="w-full" />
             <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
             <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 text-center text-white z-10 px-4 sm:px-6 md:px-8">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4">
-                Transform Your Fitness Journey with <span className="text-[#BE1C20]">Fit</span><span className="text-[#03466e]">Path</span>
+                Connect, Train, and Transform
               </h1>
               <p className="text-xs sm:text-base md:text-lg mb-6 sm:block hidden">
-                Track your workouts, connect with top trainers, and become your best self one rep at a time.
+                Join a vibrant fitness community, follow expert plans, and turn your goals into daily victories.
               </p>
               <Link
                 to="/classes"
-                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base"
+                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base 
+             transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-[#f34e3a]/40"
               >
                 Explore Classes
               </Link>
@@ -92,18 +95,19 @@ const Banner = () => {
         {/* Slider 4 */}
         <SwiperSlide>
           <div className="relative w-full">
-            <img src={banner4} alt="Banner 4" className="w-full"/>
+            <img src={banner4} alt="Banner 4" className="w-full" />
             <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
             <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 text-center text-white z-10 px-4 sm:px-6 md:px-8">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4">
-                Transform Your Fitness Journey with <span className="text-[#BE1C20]">Fit</span><span className="text-[#03466e]">Path</span>
+                Your Fitness, Your Rules
               </h1>
               <p className="text-xs sm:text-base md:text-lg mb-6 sm:block hidden">
-                Track your workouts, connect with top trainers, and become your best self one rep at a time.
+                Customize your workouts, track your nutrition, and take full control of your health journey.
               </p>
               <Link
                 to="/classes"
-                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base"
+                className="inline-block bg-[#f34e3a] hover:bg-[#e03a2d] text-white font-medium px-4 py-2 rounded shadow text-xs sm:text-sm md:text-base 
+             transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-[#f34e3a]/40"
               >
                 Explore Classes
               </Link>

@@ -72,13 +72,15 @@ const NewsletterSection = () => {
           />
           <motion.button
             onClick={handleSubscribe}
-            className="bg-[#f34e3a] hover:bg-[#e03a2d] text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+            className="bg-[#f34e3a] hover:bg-[#e03a2d] text-white px-6 py-3 rounded-lg font-semibold 
+             transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-[#f34e3a]/40"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             Subscribe Now
           </motion.button>
+
         </div>
 
         {success && (

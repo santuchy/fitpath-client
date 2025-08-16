@@ -1,7 +1,46 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import {
+  FaDumbbell,
+  FaRunning,
+  FaBiking,
+  FaSwimmer,
+  FaHeartbeat,
+  FaAppleAlt,
+} from "react-icons/fa";
 import Loading from "../../Loading/Loading";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      delay: i * 0.2,
+      ease: "easeOut",
+    },
+  }),
+};
+
+const motionEffect = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, ease: "easeInOut" },
+  },
+};
+
+const icons = [
+  <FaDumbbell className="text-2xl md:text-3xl text-[#f34e3a]" />,
+  <FaRunning className="text-2xl md:text-3xl text-[#03466e]" />,
+  <FaBiking className="text-2xl md:text-3xl text-[#BE1C20]" />,
+  <FaSwimmer className="text-2xl md:text-3xl text-[#6c757d]" />,
+  <FaHeartbeat className="text-2xl md:text-3xl text-[#f34e3a]" />,
+  <FaAppleAlt className="text-2xl md:text-3xl text-[#03466e]" />,
+];
 
 const FeaturedClasses = () => {
   const [featured, setFeatured] = useState([]);
@@ -13,45 +52,65 @@ const FeaturedClasses = () => {
     });
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, type: "spring", stiffness: 150 }}
-      viewport={{ once: false, amount: 0.2 }}
-      className="max-w-6xl mx-auto px-4 py-12 "
-    >
-      <h2 className="text-3xl font-bold mb-8 text-center text-[#f34e3a]">
-        🔥 Featured Classes
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
-        {featured.map((cls) => (
-          <motion.div
-            key={cls._id}
-            className=" rounded-2xl shadow-lg p-6 border border-gray-300 hover:shadow-2xl transition-all duration-300 bg-orange-50"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-          >
-            <h3 className="text-xl font-semibold mb-2 text-black">{cls.name}</h3>
-            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-              {cls.description || "No description available."}
-            </p>
-            <div className="text-sm text-gray-700 font-medium">
-              Total Bookings: <span className="text-[#f34e3a]">{cls.bookingCount || 0}</span>
-            </div>
-          </motion.div>
-        ))}
+    <section className="py-12 px-3 md:px-8 lg:px-16">
+      <div className="max-w-11/12 mx-auto text-center">
+        <motion.h2
+          className="text-2xl md:text-3xl font-bold text-gray-800 mb-10"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          🔥 Featured <span className="text-[#f34e3a]">Classes</span>
+        </motion.h2>
+
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {featured.map((cls, idx) => (
+            <motion.div
+              key={cls._id}
+              className="bg-orange-50 rounded-xl shadow-md hover:shadow-lg 
+                         p-5 md:p-6 flex flex-col items-center text-center 
+                         transition-all duration-300"
+              custom={idx}
+              initial="hidden"
+              whileInView="visible"
+              variants={fadeUp}
+              whileHover={{ scale: 1.03, boxShadow: "0 6px 16px rgba(0,0,0,0.12)" }}
+              viewport={{ once: false }}
+            >
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                variants={motionEffect}
+                className="mb-4"
+              >
+                {icons[idx % icons.length]}
+              </motion.div>
+
+              <h3 className="text-lg md:text-xl font-semibold text-[#03466e] mb-2">
+                {cls.name}
+              </h3>
+
+              <p className="text-gray-600 text-sm md:text-base mb-3 line-clamp-3">
+                {cls.description || "No description available."}
+              </p>
+
+              <div className="text-sm md:text-base text-gray-700 font-medium">
+                Total Bookings:{" "}
+                <span className="text-[#f34e3a]">{cls.bookingCount || 0}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
 };
 
