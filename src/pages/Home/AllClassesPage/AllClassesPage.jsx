@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Loading from "../../Loading/Loading";
 
 const AllClassesPage = () => {
-
   useEffect(() => {
-      document.title = "All Classes | FitPath";
-    }, []);
+    document.title = "All Classes | FitPath";
+  }, []);
 
   const [classes, setClasses] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // "", "asc", "desc"
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -31,12 +31,27 @@ const AllClassesPage = () => {
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    setPage(1); 
+    setPage(1);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+
+  // Sorting (client-side) for the current page results
+  const displayClasses = useMemo(() => {
+    if (sortOrder === "asc") {
+      return [...classes].sort(
+        (a, b) => (a.bookingCount || 0) - (b.bookingCount || 0)
+      );
+    }
+    if (sortOrder === "desc") {
+      return [...classes].sort(
+        (a, b) => (b.bookingCount || 0) - (a.bookingCount || 0)
+      );
+    }
+    return classes;
+  }, [classes, sortOrder]);
 
   if (loading) {
     return <Loading />;
@@ -53,19 +68,35 @@ const AllClassesPage = () => {
         All Classes
       </motion.h2>
 
+      {/* Search */}
       <motion.input
         type="text"
         placeholder="Search classes..."
         value={search}
         onChange={handleSearch}
-        className="w-full p-4 border rounded-xl shadow-lg mb-8 focus:ring-2 focus:ring-[#f34e3a]"
+        className="w-full p-4 border rounded-xl shadow-lg mb-4 focus:ring-2 focus:ring-[#f34e3a]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       />
 
+      {/* Sort Controls */}
+      <div className="flex items-center justify-end mb-8 gap-2">
+        <label className="text-sm text-gray-600">Sort by:</label>
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#f34e3a]"
+        >
+          <option value="">Default</option>
+          <option value="asc">Bookings — Low to High</option>
+          <option value="desc">Bookings — High to Low</option>
+        </select>
+      </div>
+
+      {/* Cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {classes.map((cls) => (
+        {displayClasses.map((cls) => (
           <motion.div
             key={cls._id}
             className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
@@ -75,7 +106,9 @@ const AllClassesPage = () => {
           >
             <h3 className="text-xl font-semibold mb-4 text-gray-800">{cls.name}</h3>
             <p className="text-sm text-gray-600">{cls.description}</p>
-            <p className="text-sm text-gray-500 mt-4">Bookings: {cls.bookingCount || 0}</p>
+            <p className="text-sm text-gray-500 mt-4">
+              Bookings: {cls.bookingCount || 0}
+            </p>
 
             <div className="mt-6">
               <h4 className="font-semibold mb-2 text-gray-800">Trainers:</h4>
@@ -93,7 +126,9 @@ const AllClassesPage = () => {
                     transition={{ delay: 0.2 }}
                   />
                 ))}
-                {!cls.trainers?.length && <p className="text-sm text-gray-500">No trainers listed.</p>}
+                {!cls.trainers?.length && (
+                  <p className="text-sm text-gray-500">No trainers listed.</p>
+                )}
               </div>
             </div>
           </motion.div>
