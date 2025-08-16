@@ -4,10 +4,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import banner1 from "../../../assets/banner image/banner1.png";
-import banner2 from "../../../assets/banner image/banner2.png";
-import banner3 from "../../../assets/banner image/Banner3.png";
-import banner4 from "../../../assets/banner image/Banner4.png";
+import banner1 from "../../../assets/banner image/banner1.webp";
+import banner2 from "../../../assets/banner image/banner2.webp";
+import banner3 from "../../../assets/banner image/Banner3.webp";
+import banner4 from "../../../assets/banner image/Banner4.webp";
 
 import { Link } from 'react-router';
 

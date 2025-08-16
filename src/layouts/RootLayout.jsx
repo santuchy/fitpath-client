@@ -8,10 +8,11 @@ const RootLayout = () => {
     return (
         <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-hidden">
         <Outlet />
       </main>
       <Footer />
+      
       {/* Back to Top button (fixed) */}
       <BackToTop />
     </div>

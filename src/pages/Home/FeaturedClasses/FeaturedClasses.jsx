@@ -68,7 +68,7 @@ const FeaturedClasses = () => {
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          🔥 Featured <span className="text-[#f34e3a]">Classes</span>
+          🔥 <span className="text-[#f34e3a]">Featured</span> Classes
         </motion.h2>
 
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
