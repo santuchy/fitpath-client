@@ -2,14 +2,19 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import Navbar from '../shared/Navbar/Navbar';
 import Footer from '../shared/Footer/Footer';
+import BackToTop from '../pages/Home/BackToTop/BackToTop';
 
 const RootLayout = () => {
     return (
-        <div>
-            <Navbar></Navbar>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </div>
+        <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+      {/* Back to Top button (fixed) */}
+      <BackToTop />
+    </div>
     );
 };
 
